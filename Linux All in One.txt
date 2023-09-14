@@ -1,0 +1,190 @@
+Cat ====>>
+	Different usages---->
+	1. create file
+	2. concatnate files
+	3. copy the content of one file into other one.
+	4. tac to see the content in revers order.
+
+	cat > filename (to create new file)
+	write file content here
+	----------------------- ctrl+d (to save the file)
+
+	cat >> filename (to add the more content in existing file)
+	----------------------- ctrl+d 
+
+	cat filename (to see the content inside the file)
+
+	cat file1 file2 > all (to merge (concatnate) file1 file2 	content in new file "all")
+
+	cat file1 >file2 to copy the data from file1 to file2
+
+touch =====>>
+	Different usages------>
+	1. create an empty file
+	2. create multiple file
+	3. change all timestamp of file
+	4. update only acess time of file, modify time of file.
+
+	stat filename (to see the file details like access time, modify 	time, change time)
+
+	touch filename (to create empty file)
+
+	touch file1 file2 (to create multiple file)
+
+	touch -a filename (to change the access time only)
+
+	touch -m filename (to change the modify time only)
+
+
+Vi editor =====>>
+
+	1. A programmer teext editor
+	2. used to edit any kind of plain text.
+
+	vi filename (to open the editor)
+	enter "i" to insert the content
+	enter "esc" to come out of insert mode
+	then type ":wq" to save and quit.
+
+	:w to save the file
+	:q to quit the file
+	:q! force quit no save
+
+Nano ======>>
+
+	nano filename (to create the file editor)
+	ctrl+x and then Y to save the file and then enter to close 	editor
+	Ctrl+o to overwrite the new data in existing file and then 	cntr+x to save the file.
+	
+
+mkdir ======>>
+	
+	mkdir dirName (to make the directory)
+	mkdir dir1/dir2/dir3 (make directory within directory)
+	Note*** "/" in between is seperation but at begining or end it 	is root
+	
+
+cd =======>>
+	cd dirname (it take inside this directory)
+
+pwd ======>>
+	it print working directory
+
+Hidden file creation =======>>
+	touch .filename
+Hidden directory creation =======>>
+	mkdir .dirname
+
+
+Copy file ========>>
+	cp file1(source) file2(destination)
+
+cut and paste =====>>
+	mv file1 dir1
+
+Rename file =======>>
+	mv oldname newname
+
+Remove directory =======>>
+	rmdir dirname (remove specific directory)
+	rmdir -p dir1/dir2 (remove both parent asnd child directory)
+	rmdir -pv (remove all parent and subdirectory along with 	verrox)
+	rm -rf (remove non-empty file and dir too)
+	rm -rp (remove non-empty dir including parent and subdir)
+	rm -r (remove empty dir)
+
+Hostname ======>>
+	hostname (to get the host name)
+
+Ip Address ====>>
+	ifconfig (to get the ip address of the system)
+	hostnamne -i (to get the ip address of the system)
+
+OS Version and details =====>>
+	cat /etc/os-release OR cat /etc/os-*
+
+Yellowdog updater modified (yum) ======>>
+	yum install httpd (start apache server)
+	yum remove httpd
+	yum update httpd  **** yum can be replaced with apt in ubuntu.
+
+Service ========>>
+	Service httpd start
+	service httpd status
+
+chkconfig =======>>
+	chkconfig httpd on (on/off the service)
+	chkconfig httpd off
+
+which >>>> to check whether software/package installed or not
+whoami >>>> to check who am i
+echo "" >>>>>> anything between inverted commas will print on screen.
+echo "welcom" > filename >>>> it will add this content into the file.
+grep root /etc/extra >>>>> it will search the root in side the given location
+sort >>>>>> to arrange the file in alphabetical order
+less >>>>>>
+more >>>>>>
+head >>>>>>
+tail >>>>>>
+
+
+useradd ====>>
+	to create new user
+	cat /etc/passwd --- to see the user created.
+groupadd =====>>
+	to create new group ----  groupadd -f HA
+	cat /etc/group ---- to see the group created.
+
+gpasswd -a ======>>
+	gpasswd -a username groupname ----- to add the user in a group.
+	use -M to add multiple users --- user1, user2,user3..... 	groupname.
+
+link creation ======>>
+	ln -s file1 softfile1 ---- to create softlink (shortcut) of the 	file.
+	ln file1 hardlink ----- to create the hardlink (backup) of the 	file
+
+tar ========>>
+	tar -cvf dir.tar dir1 ---- convert dir1 into dir.tar tar file
+gzip ======>>
+	gzip dir.tar ------ to zip the file/tar file.
+gunzip =====>> 
+	gunzip dir.tar.gz ------ to unzip the zipped file.
+tar -xvf ====>>
+	tar -xvf dir.tar ----- to extract the directory.
+
+wget =====>>
+	wget <url> ---- it download the files withoit iuser 	interaction.
+
+
+drwxr_xr_ _ 1 root root  ==========>>
+	1st place represent file type
+				d --- directory
+				_ --- file
+				l --- link
+	2nd 3rd and 4th represent owner/root user
+				w --- write
+				r --- read
+				x --- execute
+	5th 6th and 7th represent group 
+	8th 9th and 10th represent others
+	number at 11th place represent symboloc link
+	word at 12th place represent owner
+	word at 13th place represent groupS
+
+chmod =======>>
+	r = 4, w = 2, x = 1
+	chmod 777 filename --- rwx means 7
+
+	u = user/root, g = group, o = others
+	+ to add , - to remove and = to set
+	u - r means read is removed from user
+	g + w means write is added to group
+	o = rwx is set to others
+	chmod u=r,g=rwx,o=wx filename
+	chmod u+wx,g+rx,o+rw Harsh
+
+chown =====>>
+	chown ownername filename	
+
+chgrp ======>> 
+	chgrp grpname filename
