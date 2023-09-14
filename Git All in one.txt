@@ -1,0 +1,94 @@
+Git Commands------------>>>>>>
+
+sude su ===>> to change the root user
+yum update -y ====>>> to update the files
+yum install git -y ====>> to install git
+which git ===>> show the location where the git installed
+git --version ===>> to see the versionn
+git config --global user.name "Harshu" ===>> 
+git config --global user.email "harshu@gmail.com"
+git config --list ===>> give the name and the email list.
+
+mkdir <dirname> ===>> make a dirtectory
+cd <dirname>  ===>> go inside the dir
+cat <filename> ====>> create a code file inside the dir.
+
+git init ===>> intialize empty git repository.
+
+git staus ===>> to get the file status commited/umcommited.
+git add . ===>> to track the file
+
+git commit ===>> to commit the code file 
+git log ===>> get commit details
+git show commitID ===>> to see the code details
+
+git remote add origin <github repo url> ===>> to connect with central repository.
+
+git push -u origin master ===>> to push the code in central repo
+git pull origin master ===>> to pull the code from central repo
+
+git token <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> can use in place of password.
+
+
+ vi .gitignore ===>> to create ignore file that will use to ignore the files that we don't want to commit
+git add . 
+
+git add .gitignore ====>> to add the ignore file in repo
+
+git commit -m " " ====>> to commit the ignore file
+
+git log -1 ===>> to see lastst commit and -2 for last two commit
+
+git log --oneline ===>> to see the all commit in one line togather
+
+git log --grep " " ====>> to find the commit with the the specific words
+
+
+git branch ====>> to check the current branch
+git branch branchName ===>> to create a new branch
+git checkout branchName ===>> to swich the branch
+
+
+git merge branchName ===>> to merge the given branch in master branch
+
+
+git stash ===>> to send the file into stash store to free the workspace
+git statsh list ===>> to see th list of stash files
+git stash apply stash@{0} ===>> to apply stash item (take it back in working directory)
+git stash clear ===>> to clear the stash items
+
+git reset <filename> ===>> to undo the add item in staging area
+git reset . ===>> to undo all add
+git reset --hard ===>> to remove file from both staging area and working directory.
+
+
+git revert <commit-id> ===>> It undo an existing commit
+
+Remove untracked files ===>>
+	git clean -n (dry run)
+	git clean -f (forcefully)
+
+Tag ===>>
+	git tag -a <tagname> -m <message> <commit-id> ===>> to apply tag
+	git tag ===> To see the list of tag 
+
+	git show <tagname> ===>> to see particular commit content using tag
+	git tag -d <tagname> ===>> to delete the tag
+
+
+git clone <url of github repo> ===>> it creates a local Repo automatically in linux machine with the same name as in github account 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
