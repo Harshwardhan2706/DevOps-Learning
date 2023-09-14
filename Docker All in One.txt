@@ -1,0 +1,158 @@
+DOCKER VERSION ~ 20.10.23
+
+yum install docker -y ===>> to install docker 
+service docker status ====>>  to ckeck docker is running or not
+service docker start ===>> to start the docker 
+docker run --name <container name> -it ubuntu /bin/bash ===>> to create container
+ls ===>> to see the list of directory inside container
+cd tmp/ ===>> go inside the tmp directory
+touch <filename> ===>> create file inside tmp directory
+exit ===>> to come out of container
+docker diff <containername> ===>> to see the difference in continer 
+	C - change, A - Addition
+docker commit <containername> <imagename> ===>> to creat image
+docker images ===>> to see the list of created images
+docker run -it --name <containername> <imagename> /bin/bash ===>> to create the container from image 
+
+Dockerfile === A text file which contains some kset of instruction.
+		OR Automation of Docker image creation.
+
+FROM == for base image command must be on top of docker file.
+RUN == to execute the command it will create layer of image
+MAINTAINER == Author/Owner/Description
+COPY == copy file from local system (docker VM) we need to provide source, destination (we can't download file from any internet or remote repo)
+ADD == similar to copy but it provide feature to download file from internet
+EXPOSE == to expose point such as port 8080 for tomcat, port 80 for nginx
+WORKDIR == To set working directory for container
+CMD == excute command but during container creation
+ENTRYPOINT == Similar to CMD but has higher priority over CMD, first command will be executed by ENTRYPOINT only
+ENV == Environment variable
+
+
+Vi Dockerfile ===>> to create docker file
+	FROM ubuntu
+	RUN echo "any thing" > /tmp/testfile
+docker build -t test . ===>> to create docker image from docker file
+docker run -it --name <containername> <imagename> /bin/bash ===>> to create the container from image 
+ls ===>> to see the list of directory inside container
+cd tmp/ ===>> go inside the tmp directory
+
+vi Dockerfile ===>> 
+	FROM ubuntu
+	WORKDIR /tmp
+	RUN echo "Another way of DOcker file" > /tmp/testfile
+	ENV myname Harshwardhan
+	COPY testfile1 /tmp
+	ADD test.tar.gz /tmp
+touch testfile1 ===>> create new file
+touch test ===>> create one more file
+tar -cvf test.tar test ===>> convert test file into tar file
+gzip test.tar ===>> to conver test.tar into zip file
+rm -rf test ===>> to remove the file forcefully
+docker build -t newimage . ===>> 
+docker run -it --name newcontainer newimage /bin/bash ===>>
+
+
+create volume by using image =====-------------------------
+yum install docker -y >>>
+service docker start >>>>
+vi DockerFile >>>>
+	FROM ubuntu
+	VOLUME ["/myvolume"]
+docker build -t  myImage . >>>
+docker run -it --name container1 yourimage /bib/bash >>>
+container created now go inside the container
+	ls >> it will show myvolume as a volume
+	cd myvolume >> go insuide the volume
+		touch file1 file2 file3 >> create three file 
+
+Now create another contianer to share the volume ======
+docker run -it --name container28 --privileged=true --volumes-from container3 ubuntu /bin/bash >>>>>> to copy the volume from one container to another container
+	ls >> we'll find myvolume file copied here in this container
+		ls >> we find the three file also that's inside myvolume
+
+
+docker start containername ==>> to start the container again
+docker attach contianername ===>> to go inside the contianer
+
+
+create volume by using commands===============--------------------
+docker run -it --name harshu3cont -v /volume2 ubuntu /bin/bash >>> to create volume inside the conatiner
+	ls >> to check volume2
+docker run -it --name harshu4cont --privileged=true --volumes-from harshu3cont ubuntu /bin/bash >>> create another container and copy the volume from another conatiner 
+	ls>> to check the volume2 
+		cd volume2 >> to check file created 
+
+
+
+volume transfer from Host to Container==========---------------
+pwd ===>> to check current directory
+cd /home ===>> to go to home directory
+ls ===>> to see the ec2-user
+docker run -it --name hostcont -v home/ec2-user:/harshu3cont privileged=true ubuntu /bin/bash =====>> to create container inside the host and 
+
+
+
+
+Some other docker commands========------------
+docker volume ls ===>> to see the all avaialbe volumes
+docker volume create <volumename> ===>> to create volume
+docker volume create rm <volumename> ===>> to delete volume
+docker volume prune ===>> it remove all unused docker volume
+docker volume inspect <volumename> ===>> to check volume details
+docker container inspect <containername> ===>> to check container details
+
+
+
+Difference between Expose and publish ========-----------
+
+!.  If you specify neither expose nor -p the server in the container will only be accesible from inside the container itself.
+
+!!.  If you expose a port, the service in the conatiner is not accessible from the outside the docker, but from inside other docker containers, so this is good for inter container communication.
+
+!!!.  If you expose and -p a port, the service in the container is accessible from anywhere, even outside from docker
+
+
+Expose the port of the container========------------
+docker run -td --name techserver -p 80:80 ubuntu >>>>> create the container with port 80
+	td>>> will create the container but will not let inside the 		container
+docker ps ===>> to see the running container detaiils
+docker port techserver ===>> to see the port number
+docker exec -it techserver /bin/bash ===>> to go inside the container
+apt-get update ===>> to update in ubuntu
+apt-get install apache2 -y ===>> to install apache server
+cd /var/www/html ===>> to go inside the dir
+	echo "I'm going to kill" >index.html
+	service apache2 restart ===>> to start the service again
+	After restarting public Ip will run with given messagew body.
+
+docker run -td --name myjenkins -p 8080:8080 jenkins/jenkins ===>> container with port 8080 (jenkins)
+
+Some Important command========---------
+docker stop $(docker ps -a -q) ===>>> stop all running container
+
+docker rm $(docker ps -a -q) ===>> Delete all stopped container
+docker rmi -f $(docker image -q) ===>> delete all images
+
+Docker hub working============---------
+docker run -it ubuntu bin/bash ===>> create ubuntu image
+	go inside the container
+	touch file1 file2 file3
+	cd tmp >> go inside tmp >> touch filex filey >> create some 							file
+	exit >>> to come out of image.
+docker images ===>> to see the availabe images
+docker ps -a ===>> to see container name for all created images
+docker commit youthful_buck imagehub ===>> to create the image from container.
+docker login ===>>>
+	username:harshu001
+	password:PegaSystem
+docker tag imagehub harshu001/project1 ===>>> to add image with tag name in docker hub
+
+
+
+
+
+
+
+
+
