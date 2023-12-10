@@ -1,1 +1,10 @@
-Terraform configuration language is Declarative 
+Terraform configuration language is Declarative
+
+To deploy infrastructure with Terraform:
+      Scope - Identify the infrastructure for your project.
+      Author - Write the configuration for your infrastructure.
+      Initialize - Install the plugins Terraform needs to manage the infrastructure.
+      Plan - Preview the changes Terraform will make to match your configuration.
+      Apply - Make the planned changes.
+
+State File: Terraform keeps track of your real infrastructure in a state file
