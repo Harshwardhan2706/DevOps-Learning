@@ -1,19 +1,19 @@
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Introduction  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-Terraform configuration language is Declarative
+      Terraform configuration language is Declarative
 
-To deploy infrastructure with Terraform:
-      Scope - Identify the infrastructure for your project.
-      Author - Write the configuration for your infrastructure.
-      Initialize - Install the plugins Terraform needs to manage the infrastructure.
-      Plan - Preview the changes Terraform will make to match your configuration.
-      Apply - Make the planned changes.
+      To deploy infrastructure with Terraform:
+            Scope - Identify the infrastructure for your project.
+            Author - Write the configuration for your infrastructure.
+            Initialize - Install the plugins Terraform needs to manage the infrastructure.
+            Plan - Preview the changes Terraform will make to match your configuration.
+            Apply - Make the planned changes.
 
-State File: Terraform keeps track of your real infrastructure in a state file
+      State File: Terraform keeps track of your real infrastructure in a state file
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Terraform Provider   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-      If Version of cloud Provide and random provider is already specified in ***lock.hcl*** file then terraform will not 
-      install the version more than that:
+      If Version of cloud Provide and random provider is already specified in ***lock.hcl*** file then 
+      terraform will not install the version more than that:
 
                               required_providers {
                                   random = {
@@ -42,19 +42,51 @@ State File: Terraform keeps track of your real infrastructure in a state file
 
       Resource blocks have two strings before the block: the resource type and the resource name:
 
-      resource "aws_instance" "app_server" {
-        ami           = "ami-830c94e3"
-        instance_type = "t2.micro"
-
-        tags = {
-          Name = "ExampleAppServerInstance"
-        }
-      }
+            resource "aws_instance" "app_server" {
+              ami           = "ami-830c94e3"
+              instance_type = "t2.micro"
+      
+              tags = {
+                Name = "ExampleAppServerInstance"
+              }
+            }
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  terraform init  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
       Initializing a configuration directory downloads and installs the providers defined in the configuration
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   terraform fmt   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
       The terraform fmt command automatically updates configurations in the current directory for readability 
       and consistency.
-            Format your configuration. Terraform will print out the names of the files it modified, if any.
+      Format your configuration. Terraform will print out the names of the files it modified, if any.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   terraform validate   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      You can also make sure your configuration is syntactically valid and internally consistent by using 
+      the terraform validate command.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> terraform plan   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      Reads the current state of any already-existing remote objects to make sure that the Terraform state is up-to-date.
+      Compares the current configuration to the prior state and noting any differences.
+      Proposes a set of change actions that should, if applied, make the remote objects match the configuration.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   terraform apply    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      Create Infrstructure 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   terraform.tfstate    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      When you applied your configuration, Terraform wrote data into a file called terraform.tfstate. 
+      Terraform stores the IDs and properties of the resources it manages in this file, so that it can update 
+      or destroy those resources going forward.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   terraform show    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      Inspect the current state using terraform show
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   terraform state list    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      Terraform has a built-in command called terraform state for advanced state management. 
+      Use the list subcommand to list of the resources in your project's state.
