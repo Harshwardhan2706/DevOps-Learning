@@ -8,3 +8,25 @@ To deploy infrastructure with Terraform:
       Apply - Make the planned changes.
 
 State File: Terraform keeps track of your real infrastructure in a state file
+
+Terraform Provider:
+      If Version of cloud Provide and random provider is already specified in lock.hcl file then terraform will not 
+      install the version more than that
+                              required_providers {
+                                  random = {
+                                    source  = "hashicorp/random"
+                                    version = "3.1.0"
+                                  }
+
+                                  aws = {
+                                    source  = "hashicorp/aws"
+                                    version = ">= 4.5.0"
+                                  }
+                                }                              
+
+      If Terraform did not find a lock file, it would download the latest versions of the providers that fulfill the version constraints you defined in the required_providers block. The following table shows which provider Terraform would download in this scenario, based on the version constraint and presence of a lock file.
+
+            Provider	Version Constraint	terraform init (no lock file)	terraform init (lock file)
+            aws	      >= 2.0.0	            Latest version (e.g. 4.45.0)	Lock file version (2.50.0)
+            random	3.1.0	            3.1.0	                               Lock file version (3.1.0)
+The lock file instructs Terraform to always install the same provider version, ensuring that consistent runs across your team or remote sessions.
