@@ -90,3 +90,30 @@
 
       Terraform has a built-in command called terraform state for advanced state management. 
       Use the list subcommand to list of the resources in your project's state.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> terraform destroy   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      The terraform destroy command terminates resources managed by your Terraform project. 
+      This command is the inverse of terraform apply in that it terminates all the resources specified 
+      in your Terraform state. 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Remote State    >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      Keep this terraform folder and files in remote location (Terraform Cloud) so it can be secured, 
+      version controlled and can be accessible by different people within your team and organisation.
+
+      How to migrate your state to remote:
+
+      First add this block inside terraform block in your .tf file
+
+            cloud {
+                organization = "organization-name"
+                workspaces {
+                  name = "learn-tfc-aws"
+                }
+              }
+
+      put your org. name and desired workspace name.
+      then Run **terraform login** --- to login to terraform cloud where you get your Token that 
+      will be use to After Applying **terraform init** to migrate your state file to terraform cloud.
+      
