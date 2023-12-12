@@ -116,4 +116,6 @@
       put your org. name and desired workspace name.
       then Run **terraform login** --- to login to terraform cloud where you get your Token that 
       will be use to After Applying **terraform init** to migrate your state file to terraform cloud.
+
+      Later you can plan apply and destroy it will make affect on remote state file in terra cloud.
       
