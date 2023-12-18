@@ -118,4 +118,30 @@
       will be use to After Applying **terraform init** to migrate your state file to terraform cloud.
 
       Later you can plan apply and destroy it will make affect on remote state file in terra cloud.
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Terraform Variable   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+            variable "vpc_cidr_block" {
+              description = "CIDR block for VPC"
+              type        = string
+              default     = "10.0.0.0/16"
+            }
+
+      Variable blocks have three optional arguments.
+
+            Description: A short description to document the purpose of the variable.
+            Type: The type of data contained in the variable.
+            Default: The default value.
+
+
+      We recommend setting a description and type for all variables, and setting a default value when practical.
+
+      If you do not set a default value for a variable, you must assign a value before Terraform can apply the 
+      configuration. Terraform does not support unassigned variables. You will review some of the ways to 
+      assign values to variables later in this tutorial.
+
+      Variable values must be literal values, and cannot use computed values like resource attributes, 
+      expressions, or other variables. You can refer to variables in your configuration with 
+      ***var.<variable_name>***.
       
