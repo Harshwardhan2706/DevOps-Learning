@@ -146,3 +146,37 @@
       expressions, or other variables. You can refer to variables in your configuration with 
       ***var.<variable_name>***.
       
+
+      The variables you have used so far have all been single values. Terraform calls these types of variables simple. 
+      Terraform also supports collection variable types that contain more than one value. Terraform supports 
+      several collection variable types.
+
+            List: A sequence of values of the same type.
+            Map: A lookup table, matching keys to values, all of the same type.
+            Set: An unordered collection of unique values, all of the same type.
+
+                    variable "public_subnet_cidr_blocks" {
+                    description = "Available cidr blocks for public subnets."
+                    type        = list(string)
+                    default     = [
+                      "10.0.1.0/24",
+                      "10.0.2.0/24",
+                      "10.0.3.0/24",
+                      "10.0.4.0/24",
+                      "10.0.5.0/24",
+                      "10.0.6.0/24",
+                      "10.0.7.0/24",
+                      "10.0.8.0/24",
+                    ]
+                  }
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   Terraform console   >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+      The Terraform console command opens an interactive console that you can use to evaluate expressions in the 
+      context of your configuration
+
+      The ***slice()*** function takes three arguments: the list to slice, the start index, and the end index 
+      (exclusive). It returns a new list with the specified elements copied ("sliced") from the original list.
+
+            private_subnets = slice(var.private_subnet_cidr_blocks, 0, var.private_subnet_count)
+            public_subnets  = slice(var.public_subnet_cidr_blocks, 0, var.public_subnet_count)
