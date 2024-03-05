@@ -188,3 +188,9 @@ chown =====>>
 
 chgrp ======>> 
 	chgrp grpname filename
+
+Extra Commands =======>>
+	ls -ltr === to list down the files with all properties
+	free === to check available memory
+	nproc === to check number of CPUs
+	df -h === to check disk size
