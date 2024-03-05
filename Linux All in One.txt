@@ -194,3 +194,6 @@ Extra Commands =======>>
 	free === to check available memory
 	nproc === to check number of CPUs
 	df -h === to check disk size
+	top === to get the all info togather
+	man "any command" === it give the details about this command
+	
