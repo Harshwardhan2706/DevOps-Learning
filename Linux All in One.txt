@@ -196,4 +196,9 @@ Extra Commands =======>>
 	df -h === to check disk size
 	top === to get the all info togather
 	man "any command" === it give the details about this command
-	
+
+SHELL Scripting =======>>>
+	#!/bin/bash ====>> shebang/hashbang
+		>> "#!/bin/bash" tells the system to use the bash shell (Bourne Again Shell) to interpret and 		   run the commands within the script.
+		>> By explicitly mentioning the interpreter, the script becomes more portable across 			   different systems. Even if the system has a different default shell, the shebang ensures 		   that the correct interpreter is used, allowing the script to run consistently.
+
