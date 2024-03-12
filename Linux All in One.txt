@@ -217,3 +217,4 @@ set x- ===>> debug mode (it will print the each command before printing the resu
 
 ps -ef ===>> list down the running processes
 | ===>> pipe command ==> used between two commands and transfer the result of first command to second command
+	"|" command will not work with "date" as it send output to stdin instead of stdout
