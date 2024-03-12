@@ -202,3 +202,14 @@ SHELL Scripting =======>>>
 		>> "#!/bin/bash" tells the system to use the bash shell (Bourne Again Shell) to interpret and 		   run the commands within the script.
 		>> By explicitly mentioning the interpreter, the script becomes more portable across 			   different systems. Even if the system has a different default shell, the shebang ensures 		   that the correct interpreter is used, allowing the script to run consistently.
 
+create a shell file shell-script.sh which contains following instructions =====>
+	#!/bin/bash
+
+	#create a folder
+	mkdir baghel
+	
+	#create two files
+	cd baghel
+	touch bg1 bg2 
+
+	these instructions to create one directory named baghel anfd two files bg1 bg2 inside this folder.
