@@ -213,3 +213,4 @@ create a shell file shell-script.sh which contains following instructions =====>
 	touch bg1 bg2 
 
 	these instructions to create one directory named baghel anfd two files bg1 bg2 inside this folder.
+set x- ===>> debug mode (it will print the each command before printing the result)
