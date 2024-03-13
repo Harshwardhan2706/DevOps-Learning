@@ -221,3 +221,14 @@ ps -ef ===>> list down the running processes
 	"|" command will not work with "date" as it send output to stdin instead of stdout
 
  grep employee harshu | awk -F" " '{print $5}' ===>> to print the value of specific column from the line
+
+if/else syntax ===>> 
+	a=4
+	b=10
+	
+	if [ $a > $b ]
+	then
+	        echo "a is greater than b"
+	else
+	        echo "b is greater than a"
+	fi
