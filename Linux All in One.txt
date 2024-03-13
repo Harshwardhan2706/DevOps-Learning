@@ -214,7 +214,10 @@ create a shell file shell-script.sh which contains following instructions =====>
 
 	these instructions to create one directory named baghel anfd two files bg1 bg2 inside this folder.
 set x- ===>> debug mode (it will print the each command before printing the result)
-
+set -e ===>> exit the script if there is an any error
+set -o ===>> pipefail when set -e not able to identify error with pipe (ex. hshssb | echo)
 ps -ef ===>> list down the running processes
 | ===>> pipe command ==> used between two commands and transfer the result of first command to second command
 	"|" command will not work with "date" as it send output to stdin instead of stdout
+
+ grep employee harshu | awk -F" " '{print $5}' ===>> to print the value of specific column from the line
