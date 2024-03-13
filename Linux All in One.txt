@@ -196,6 +196,7 @@ Extra Commands =======>>
 	df -h === to check disk size
 	top === to get the all info togather
 	man "any command" === it give the details about this command
+	trap ===>> use to trap or disable certail commmand
 
 SHELL Scripting =======>>>
 	#!/bin/bash ====>> shebang/hashbang
@@ -213,6 +214,7 @@ create a shell file shell-script.sh which contains following instructions =====>
 	touch bg1 bg2 
 
 	these instructions to create one directory named baghel anfd two files bg1 bg2 inside this folder.
+
 set x- ===>> debug mode (it will print the each command before printing the result)
 set -e ===>> exit the script if there is an any error
 set -o ===>> pipefail when set -e not able to identify error with pipe (ex. hshssb | echo)
