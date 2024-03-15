@@ -244,3 +244,8 @@ if/else syntax ===>>
 	        echo $i
 	fi;
 	done
+
+to print the number of s in mississipi word 
+	#!/bin/bash
+	x=mississipi
+	grep -o "s" <<<"$x" | wc -l
