@@ -87,6 +87,8 @@ inside .git some important folder are there ==>>
 
 git reset --hard <commit Id> ==> to roleback to specific version via commit id
 
+ls .git/hooks/pre-commit.sample ==>> to prevent any unwanted changes
+
 
 
 
