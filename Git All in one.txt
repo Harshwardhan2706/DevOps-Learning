@@ -78,6 +78,15 @@ Tag ===>>
 
 git clone <url of github repo> ===>> it creates a local Repo automatically in linux machine with the same name as in github account 
 
+Extra Git Commands ===>> 
+
+inside .git some important folder are there ==>>
+	object ==> it store each git file as a object
+	hooks ==> use to prevent unintentional pass change or api token change
+	config ==>> use to configure secure git credential
+
+git reset --hard <commit Id> ==> to roleback to specific version via commit id
+
 
 
 
