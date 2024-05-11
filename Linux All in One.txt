@@ -197,6 +197,7 @@ Extra Commands =======>>
 	top === to get the all info togather
 	man "any command" === it give the details about this command
 	trap ===>> use to trap or disable certail commmand
+	uname ===>> to print system information
 
 SHELL Scripting =======>>>
 	#!/bin/bash ====>> shebang/hashbang
