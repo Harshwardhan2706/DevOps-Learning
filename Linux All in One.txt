@@ -199,6 +199,7 @@ Extra Commands =======>>
 	trap ===>> use to trap or disable certail commmand
 	uname ===>> to print system information
 	ssh ===>> to login remote ----> ssh -i demokey.pem ubuntu@ipAddress
+	bash ===>> bash file.sh ==>> to execute shell file
 
 SHELL Scripting =======>>>
 	#!/bin/bash ====>> shebang/hashbang
