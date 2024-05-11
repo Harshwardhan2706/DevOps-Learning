@@ -256,6 +256,17 @@ to print the number of s in mississipi word
 crontab ===> to set something to send automatically at certain time daily report
 vim -r filename ===>> to open the file at read only mode
 
+VARIABLES ======>>>
+	FIRST_NAME=Harsh ====>> echo hell $FIRST_NAME ===>> hello Harsh
+	interactive shell ===>>
+
+		echo what is your first name
+		read FIRST_NAME
+		echo What is your last name
+		read LAST_NAME
+
+		echo hello $FIRST_NAME $LAST_NAME
+
 Softlink vs hardlink ===>> point to same object vs point to copy of that object
 
 traceroute ==>> network debugging, to get number of hops between your system and website with request travel time
