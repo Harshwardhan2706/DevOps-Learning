@@ -198,6 +198,7 @@ Extra Commands =======>>
 	man "any command" === it give the details about this command
 	trap ===>> use to trap or disable certail commmand
 	uname ===>> to print system information
+	ssh ===>> to login remote ----> ssh -i demo.key ubuntu@ipAddress
 
 SHELL Scripting =======>>>
 	#!/bin/bash ====>> shebang/hashbang
