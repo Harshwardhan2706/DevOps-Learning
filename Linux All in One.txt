@@ -1,4 +1,5 @@
 Cat ====>>
+__________________________________________________________________________________________________
 	Different usages---->
 	1. create file
 	2. concatnate files
@@ -17,8 +18,11 @@ Cat ====>>
 	cat file1 file2 > all (to merge (concatnate) file1 file2 	content in new file "all")
 
 	cat file1 >file2 to copy the data from file1 to file2
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 touch =====>>
+__________________________________________________________________________________________________
 	Different usages------>
 	1. create an empty file
 	2. create multiple file
@@ -34,10 +38,11 @@ touch =====>>
 	touch -a filename (to change the access time only)
 
 	touch -m filename (to change the modify time only)
-
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 Vi editor =====>>
-
+__________________________________________________________________________________________________
 	1. A programmer teext editor
 	2. used to edit any kind of plain text.
 
@@ -49,72 +54,95 @@ Vi editor =====>>
 	:w to save the file
 	:q to quit the file
 	:q! force quit no save
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 Nano ======>>
-
+__________________________________________________________________________________________________
 	nano filename (to create the file editor)
 	ctrl+x and then Y to save the file and then enter to close 	editor
 	Ctrl+o to overwrite the new data in existing file and then 	cntr+x to save the file.
 	
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 mkdir ======>>
-	
+__________________________________________________________________________________________________	
 	mkdir dirName (to make the directory)
 	mkdir dir1/dir2/dir3 (make directory within directory)
 	Note*** "/" in between is seperation but at begining or end it 	is root
-	
+________________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------------	
 
 cd =======>>
+__________________________________________________________________________________________________
 	cd dirname (it take inside this directory)
 
 pwd ======>>
+__________________________________________________________________________________________________
 	it print working directory
 
 Hidden file creation =======>>
+__________________________________________________________________________________________________
 	touch .filename
+
 Hidden directory creation =======>>
+__________________________________________________________________________________________________
 	mkdir .dirname
 
-
 Copy file ========>>
+__________________________________________________________________________________________________
 	cp file1(source) file2(destination)
 
 cut and paste =====>>
+__________________________________________________________________________________________________
 	mv file1 dir1
 
 Rename file =======>>
+__________________________________________________________________________________________________
 	mv oldname newname
 
 Remove directory =======>>
+__________________________________________________________________________________________________
 	rmdir dirname (remove specific directory)
 	rmdir -p dir1/dir2 (remove both parent asnd child directory)
 	rmdir -pv (remove all parent and subdirectory along with 	verrox)
 	rm -rf (remove non-empty file and dir too)
 	rm -rp (remove non-empty dir including parent and subdir)
 	rm -r (remove empty dir)
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 Hostname ======>>
+__________________________________________________________________________________________________
 	hostname (to get the host name)
 
 Ip Address ====>>
+__________________________________________________________________________________________________
 	ifconfig (to get the ip address of the system)
 	hostnamne -i (to get the ip address of the system)
 
 OS Version and details =====>>
+__________________________________________________________________________________________________
 	cat /etc/os-release OR cat /etc/os-*
 
 Yellowdog updater modified (yum) ======>>
+__________________________________________________________________________________________________
 	yum install httpd (start apache server)
 	yum remove httpd
 	yum update httpd  **** yum can be replaced with apt in ubuntu.
 
 Service ========>>
+__________________________________________________________________________________________________
 	Service httpd start
 	service httpd status
 
 chkconfig =======>>
+__________________________________________________________________________________________________
 	chkconfig httpd on (on/off the service)
 	chkconfig httpd off
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 which >>>> to check whether software/package installed or not
 whoami >>>> to check who am i
@@ -126,21 +154,27 @@ less >>>>>>
 more >>>>>>
 head >>>>>>
 tail >>>>>>
-
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 useradd ====>>
+__________________________________________________________________________________________________
 	to create new user
 	cat /etc/passwd --- to see the user created.
+
 groupadd =====>>
+__________________________________________________________________________________________________
 	to create new group ----  groupadd -f HA
 	cat /etc/group ---- to see the group created.
 
 gpasswd -a ======>>
+__________________________________________________________________________________________________
 	gpasswd -a username groupname ----- to add the user in a group.
 	use -M to add multiple users --- user1, user2,user3..... 	groupname.
 
 link creation ======>>
-	ln -s file1 softfile1 ---- to create softlink (shortcut) of the 	file.
+__________________________________________________________________________________________________
+	ln -s file1 softfile1 ---- to create softlink (shortcut) of the file.
 	ln file1 hardlink ----- to create the hardlink (backup) of the 	file
 
 tar ========>>
@@ -154,9 +188,11 @@ tar -xvf ====>>
 
 wget =====>>
 	wget <url> ---- it download the files withoit iuser 	interaction.
-
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 drwxr_xr_ _ 1 root root  ==========>>
+__________________________________________________________________________________________________
 	1st place represent file type
 				d --- directory
 				_ --- file
@@ -172,6 +208,7 @@ drwxr_xr_ _ 1 root root  ==========>>
 	word at 13th place represent groupS
 
 chmod =======>>
+__________________________________________________________________________________________________
 	r = 4, w = 2, x = 1
 	chmod 777 filename --- rwx means 7
 
@@ -188,8 +225,10 @@ chown =====>>
 
 chgrp ======>> 
 	chgrp grpname filename
-
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 Extra Commands =======>>
+__________________________________________________________________________________________________
 	ls -ltr === to list down the files with all properties
 	free === to check available memory
 	nproc === to check number of CPUs
@@ -200,8 +239,35 @@ Extra Commands =======>>
 	uname ===>> to print system information
 	ssh ===>> to login remote ----> ssh -i demokey.pem ubuntu@ipAddress
 	bash ===>> bash file.sh ==>> to execute shell file
-
+	wc -w filename ===>> number of word count ==>> n filename
+	wc -w < filename ==>> give number of words only
+	echo hello guys > hello.txt ===> overwrite the cotent inside the file
+	echo good morning >> hello.txt ===> to append text inside the same file
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
+	cat << EOF
+	> hello
+	> guys
+	> how are you
+	> doing
+	> EOF
+		oUTPUT ==>>	hello
+				guys
+				how are you
+				doing
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
+TEST =====>>
+__________________________________________________________________________________________________
+	[ hello = hello ]
+	echo $? ===> 0 as both both hello are same
+	[ 1 -eq 1 ] OR [ 1 = 1 ]
+	echo $? ===> 0
+	
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 SHELL Scripting =======>>>
+__________________________________________________________________________________________________
 	#!/bin/bash ====>> shebang/hashbang
 		>> "#!/bin/bash" tells the system to use the bash shell (Bourne Again Shell) to interpret and 		   run the commands within the script.
 		>> By explicitly mentioning the interpreter, the script becomes more portable across 			   different systems. Even if the system has a different default shell, the shebang ensures 		   that the correct interpreter is used, allowing the script to run consistently.
@@ -226,8 +292,11 @@ ps -ef ===>> list down the running processes
 	"|" command will not work with "date" as it send output to stdin instead of stdout
 
  grep employee harshu | awk -F" " '{print $5}' ===>> to print the value of specific column from the line
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 if/else syntax ===>> 
+__________________________________________________________________________________________________
 	a=4
 	b=10
 	
@@ -237,7 +306,7 @@ if/else syntax ===>>
 	else
 	        echo "b is greater than a"
 	fi
-
+	---------------------------------------------------------------
 	#!/bin/bash
 	
 	#divisible by 3, by 5 but not 3*5=15
@@ -247,16 +316,30 @@ if/else syntax ===>>
 	        echo $i
 	fi;
 	done
-
-to print the number of s in mississipi word 
+	----------------------------------------------------------------
 	#!/bin/bash
-	x=mississipi
-	grep -o "s" <<<"$x" | wc -l
+
+	if [ ${1,,} = baghel ]; then
+	        echo "hi boss you are welcome"
+	elif [ ${1,,} = help ]; then
+	        echo "please enter your correct name"
+	else
+	        echo "i don't know eho you are"
+	fi
+	--------------------------------------------------------------------
+	to print the number of s in mississipi word 
+		#!/bin/bash
+		x=mississipi
+		grep -o "s" <<<"$x" | wc -l
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 
 crontab ===> to set something to send automatically at certain time daily report
 vim -r filename ===>> to open the file at read only mode
-
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 VARIABLES ======>>>
+__________________________________________________________________________________________________
 	FIRST_NAME=Harsh ====>> echo hell $FIRST_NAME ===>> hello Harsh
 	interactive shell ===>>
 
@@ -266,7 +349,8 @@ VARIABLES ======>>>
 		read LAST_NAME
 
 		echo hello $FIRST_NAME $LAST_NAME
-
+________________________________________________________________________________________________________
+--------------------------------------------------------------------------------------------------------
 Softlink vs hardlink ===>> point to same object vs point to copy of that object
 
 traceroute ==>> network debugging, to get number of hops between your system and website with request travel time
