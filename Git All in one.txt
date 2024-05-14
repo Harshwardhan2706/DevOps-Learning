@@ -46,6 +46,7 @@ git log --grep " " ====>> to find the commit with the the specific words
 
 git branch ====>> to check the current branch
 git branch branchName ===>> to create a new branch
+git checkout -b branchName ===>> to craete new branch and switch zto the branch
 git checkout branchName ===>> to swich the branch
 
 
