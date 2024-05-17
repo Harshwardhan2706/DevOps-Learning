@@ -1,0 +1,10 @@
+Main networking topics =========>>
+  - IP Addressing
+  - Ports and Protocols (TCP/IP, UDP, HTTP, DNS)
+  - Network Services (DHCP, DNS)
+  - Routing and Switching Basics
+  - Authentication and Authorization
+  - Security Best Practices
+  - Shift-Left Security
+  - Firewalls and Network Security
+
