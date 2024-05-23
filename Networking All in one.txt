@@ -11,3 +11,4 @@ Main networking topics =========>>
 🔘IP Addressing ===>>
 _____________________________________________________________________________________________________________
 
+unique identification tag for a device on network, It allows other devices to find and send information to your computer or device.
