@@ -11,4 +11,20 @@ Main networking topics =========>>
 🔘IP Addressing ===>>
 _____________________________________________________________________________________________________________
 
-unique identification tag for a device on network, It allows other devices to find and send information to your computer or device.
+  unique identification tag for a device on network, It allows other devices to find and send information to your computer or device.
+  This number, typically written as four sets of numbers separated by periods (e.g., 192.168.1.1).
+
+  ● Versions: There are two main IP address versions:
+
+    IPv4: The original version, uses 32 bits and is written as four numbers between 0 and 255. Due to the growth of the internet, IPv4 addresses are becoming       scarce.
+    IPv6: The newer version, uses 128 bits and provides a much larger pool of addresses. It's written as eight groups of hexadecimal numbers separated by           colons   (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334).
+
+  ● Assignment: IP addresses can be assigned in two ways:
+
+    Static IP: A fixed address manually configured on a device. This is common for servers or network equipment.
+    Dynamic IP: An address automatically assigned by a server (like DHCP) when a device connects to a network. This is common for home users and mobile devices.
+
+  ● Public vs. Private IP:
+
+    Public IP: An address that identifies a device on the public internet.
+    Private IP: An address used for internal networks and not directly accessible from the internet. There are specific reserved ranges for private IPs.
