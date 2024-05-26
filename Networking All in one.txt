@@ -27,4 +27,14 @@ ________________________________________________________________________________
   ● Public vs. Private IP:
 
     Public IP: An address that identifies a device on the public internet.
-    Private IP: An address used for internal networks and not directly accessible from the internet. There are specific reserved ranges for private IPs.
+    Private IP: An address used for internal networks and not directly accessible from the internet. There are     specific reserved ranges for private IPs.
+-------------------------------------------------------------------------------------------------------------
+
+Subnetting ===>>
+_____________________________________________________________________________________________________________
+
+    A subnet mask, in the world of IP addressing (IPv4 specifically), is a 32-bit number that acts like a          divider,  separating an IP address into two parts: the network address and the host address.
+
+  ● Example: 
+    A common subnet mask for a home network might be 255.255.255.0. In binary, this translates to           
+    11111111.11111111.11111111.00000000. Here, the first three octets (24 bits) with all ones represent the        network address, and the last octet (8 bits) with all zeros signifies the host portion.
