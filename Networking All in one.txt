@@ -38,3 +38,14 @@ ________________________________________________________________________________
   ● Example: 
     A common subnet mask for a home network might be 255.255.255.0. In binary, this translates to           
     11111111.11111111.11111111.00000000. Here, the first three octets (24 bits) with all ones represent the        network address, and the last octet (8 bits) with all zeros signifies the host portion.
+---------------------------------------------------------------------------------------------------------------
+
+CIDR ===>>
+_____________________________________________________________________________________________________________
+
+    CIDR, which stands for Classless Inter-Domain Routing, is a way to manage IP addresses more efficiently.
+
+  ● CIDR Notation: 
+    CIDR uses a notation like  "IP address/prefix length". For example, 192.168.1.0/24 represents an IP       
+    address with a /24 prefix length. This prefix length indicates the number of contiguous 1s in the subnet       mask (out of 32 bits for IPv4). In this case, /24 signifies a subnet mask of                                   255.255.255.0 (first 24 bits are 1s).
+
