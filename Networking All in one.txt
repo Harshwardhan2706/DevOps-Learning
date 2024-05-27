@@ -48,4 +48,43 @@ ________________________________________________________________________________
   ● CIDR Notation: 
     CIDR uses a notation like  "IP address/prefix length". For example, 192.168.1.0/24 represents an IP       
     address with a /24 prefix length. This prefix length indicates the number of contiguous 1s in the subnet       mask (out of 32 bits for IPv4). In this case, /24 signifies a subnet mask of                                   255.255.255.0 (first 24 bits are 1s).
+-------------------------------------------------------------------------------------------------------------
 
+OSI Model ===>>
+_____________________________________________________________________________________________________________
+
+  The OSI model, also known as the Open Systems Interconnection model, is a conceptual framework that defines how network    
+  communication occurs.
+
+  1. Physical Layer:
+      Deals with the physical transmission of raw data bits across a network medium like cables or wireless signals.
+      Examples: Cables, connectors, network cards.
+
+  2. Data Link Layer:
+      Focuses on error-free transmission of data frames between network devices on the same physical link.
+      Takes the raw data from the Physical layer and packages it into frames, adding error correction codes.
+      Examples: MAC addresses, error detection and correction (CRC).
+
+  3. Network Layer:
+      Responsible for routing data packets across different network segments.
+      Determines the best path for data to reach its destination on potentially complex networks.
+      Examples: IP addresses, routing protocols.
+
+  4. Transport Layer:
+      Provides reliable data transfer services between applications on different devices.
+      Segments data from upper layers into manageable packets, ensures delivery, and handles retransmission if needed.
+      Examples: TCP (Transmission Control Protocol) and UDP (User Datagram Protocol).
+
+  5. Session Layer:
+      Establishes, manages, and terminates sessions between applications communicating over a network.
+      Coordinates dialog, data exchange, and session termination between applications.
+      Examples: Session initiation and termination protocols.
+
+  6. Presentation Layer:
+      Deals with the presentation of data, ensuring it's understood by the receiving application.
+      May handle data encryption, decryption, compression, and formatting.
+      Examples: Data encryption/decryption, character set conversion.
+
+  7. Application Layer:
+      Provides network services directly to user applications.
+      Examples: Web browsing (HTTP), file transfer (FTP), email (SMTP).
