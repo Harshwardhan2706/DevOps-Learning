@@ -118,25 +118,25 @@ Protocol is a set of rules that govern how data is transmitted between devices.
 ● Application protocols:
   Application protocols are the language applications use to talk to each other on a network. They define how data is exchanged     between software applications to perform specific tasks like web browsing, sending emails, or file transfers.
 
-  ○ Hypertext Transfer Protocol (HTTP): 
+  ○ Hypertext Transfer Protocol (HTTP) (80): 
     The foundation of the web, HTTP is used to transfer web pages and data between web servers and browsers. Whenever you visit a     website, your browser uses HTTP to communicate with the server and request or display information.
 
-  ○ Simple Mail Transfer Protocol (SMTP):  
+  ○ Simple Mail Transfer Protocol (SMTP) (587):  
     This protocol handles the transfer of emails between servers. When you send an email, SMTP moves it from your email client        (like Outlook) to the recipient's mail server.
 
-  ○ File Transfer Protocol (FTP):  
+  ○ File Transfer Protocol (FTP) (20, 21):  
     This workhorse protocol allows for file transfers between computers. FTP establishes a     connection for users to upload or      download files from remote servers.
 
-  ○ Domain Name System (DNS):  
+  ○ Domain Name System (DNS) (53):  
     Not exactly user-facing, but crucial behind the scenes, DNS translates user-friendly domain names (like [invalid URL              removed]) into numerical IP addresses that computers use to locate servers.
 
-  ○ Post Office Protocol (POP3):  
+  ○ Post Office Protocol (POP3) (110, 995):  
     This protocol retrieves emails from a mail server to your email client. POP3 downloads emails to your device, allowing you to     read them even when offline.
 
-  ○ Secure Sockets Layer/Hypertext Transfer Protocol Secure (SSL/HTTPS): 
+  ○ Secure Sockets Layer/Hypertext Transfer Protocol Secure (SSL/HTTPS) (443): 
     This secure version of HTTP encrypts communication between a web browser and server. HTTPS is used for sensitive transactions     like online banking or shopping, where data privacy is critical.
 
-  ○ SSH Secure Shell: 
+  ○ SSH Secure Shell (22): 
     It's a cryptographic network protocol that enables secure communication between two computers over an unsecured network.
     Imagine SSH as a secure encrypted tunnel you can use to access and control a remote computer or transfer files safely, even       over public Wi-Fi networks.
 
