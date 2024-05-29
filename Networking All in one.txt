@@ -222,6 +222,7 @@ ________________________________________________________________________________
   o Forwards data packets based on their IP addresses and the routing table information.
 
   Feature	                        Switching	                                      Routing
+_______________                 _________________________                       __________________________ 
   Layer (OSI)	                    Layer 2 (Data Link Layer)	                      Layer 3 (Network Layer)
   Scope	                          Within a single network segment	                Connects multiple networks
   Addressing	                    Uses MAC addresses	                            Uses IP addresses
