@@ -107,37 +107,93 @@ Protocol is a set of rules that govern how data is transmitted between devices.
   These protocols define how data is formatted and transmitted over a network. Some common network protocols include:
 
   ○ Transmission Control Protocol (TCP):
-    TCP is a reliable protocol that ensures that data is delivered accurately and in the correct order. It does this by breaking      data into packets, sending them to the destination device, and then checking to make sure they arrive correctly. TCP is used      for applications like web browsing and email, where it's important that data arrives accurately.
+    TCP is a reliable protocol that ensures that data is delivered accurately and in the correct order. It does this by breaking      
+    data into packets, sending them to the destination device, and then checking to make sure they arrive correctly. TCP is used      
+    for applications like web browsing and email, where it's important that data arrives accurately.
 
   ○ User Datagram Protocol (UDP):
-    UDP is a connectionless protocol that is faster than TCP, but it is not as reliable. UDP does not guarantee that data will        arrive accurately or in the order it was sent. UDP is used for applications like streaming video and online gaming, where         speed is more important than accuracy.
+    UDP is a connectionless protocol that is faster than TCP, but it is not as reliable. UDP does not guarantee that data will 
+    arrive accurately or in the order it was sent. UDP is used for applications like streaming video and online gaming, where 
+    speed is more important than accuracy.
 
   ○ Internet Protocol (IP):
-    IP is the protocol that is responsible for routing data packets over the internet. IP addresses are used to identify devices      on the internet.
+    IP is the protocol that is responsible for routing data packets over the internet. IP addresses are used to identify devices 
+    on the internet.
 
 ● Application protocols:
-  Application protocols are the language applications use to talk to each other on a network. They define how data is exchanged     between software applications to perform specific tasks like web browsing, sending emails, or file transfers.
+  Application protocols are the language applications use to talk to each other on a network. They define how data is exchanged 
+  between software applications to perform specific tasks like web browsing, sending emails, or file transfers.
 
   ○ Hypertext Transfer Protocol (HTTP) (80): 
-    The foundation of the web, HTTP is used to transfer web pages and data between web servers and browsers. Whenever you visit a     website, your browser uses HTTP to communicate with the server and request or display information.
+    The foundation of the web, HTTP is used to transfer web pages and data between web servers and browsers. Whenever you visit 
+    a website, your browser uses HTTP to communicate with the server and request or display information.
 
   ○ Simple Mail Transfer Protocol (SMTP) (587):  
-    This protocol handles the transfer of emails between servers. When you send an email, SMTP moves it from your email client        (like Outlook) to the recipient's mail server.
+    This protocol handles the transfer of emails between servers. When you send an email, SMTP moves it from your email client        
+    (like Outlook) to the recipient's mail server.
 
   ○ File Transfer Protocol (FTP) (20, 21):  
-    This workhorse protocol allows for file transfers between computers. FTP establishes a     connection for users to upload or      download files from remote servers.
+    This workhorse protocol allows for file transfers between computers. FTP establishes a connection for users to upload or 
+    download files from remote servers.
 
   ○ Domain Name System (DNS) (53):  
-    Not exactly user-facing, but crucial behind the scenes, DNS translates user-friendly domain names (like [invalid URL              removed]) into numerical IP addresses that computers use to locate servers.
+    Not exactly user-facing, but crucial behind the scenes, DNS translates user-friendly domain names (like [invalid URL removed]) 
+    into numerical IP addresses that computers use to locate servers.
 
   ○ Post Office Protocol (POP3) (110, 995):  
-    This protocol retrieves emails from a mail server to your email client. POP3 downloads emails to your device, allowing you to     read them even when offline.
+    This protocol retrieves emails from a mail server to your email client. POP3 downloads emails to your device, allowing you to 
+    read them even when offline.
 
   ○ Secure Sockets Layer/Hypertext Transfer Protocol Secure (SSL/HTTPS) (443): 
-    This secure version of HTTP encrypts communication between a web browser and server. HTTPS is used for sensitive transactions     like online banking or shopping, where data privacy is critical.
+    This secure version of HTTP encrypts communication between a web browser and server. HTTPS is used for sensitive transactions     
+    like online banking or shopping, where data privacy is critical.
 
   ○ SSH Secure Shell (22): 
     It's a cryptographic network protocol that enables secure communication between two computers over an unsecured network.
-    Imagine SSH as a secure encrypted tunnel you can use to access and control a remote computer or transfer files safely, even       over public Wi-Fi networks.
+    Imagine SSH as a secure encrypted tunnel you can use to access and control a remote computer or transfer files safely, even      
+    over public Wi-Fi networks.
 
-  many other application protocols used for various purposes, like streaming video (RTP), instant messaging (IRC), or managing      network devices (SNMP).
+  many other application protocols used for various purposes, like streaming video (RTP), instant messaging (IRC), or managing      
+  network devices (SNMP).
+------------------------------------------------------------------------------------------------------------------------------
+
+🔘Network System ===>>
+_____________________________________________________________________________________________________________________________
+
+Network services are the backbone of any network, allowing devices and users to communicate and share resources. They operate at the 
+application layer (layer 7) of the OSI model and provide a variety of functionalities.
+
+● Types of Network Services:
+
+  o File and Print Sharing: 
+    Allows users to access and share files and printers on the network.
+  
+  o Directory Services: 
+    Organize and manage user accounts, passwords, and other network resources.
+  
+  o Web Services: 
+    Form the foundation of the internet, enabling communication between web servers and web browsers.
+  
+  o Communication Services: 
+    Facilitate communication through email, instant messaging, or video conferencing.
+  
+  o Remote Access Services: 
+    Allow users to securely access and control remote computers.
+  
+  o Database Services: 
+    Manage and provide access to structured data in a centralized location.
+  
+  o Security Services: 
+    Implement security measures like firewalls, intrusion detection, and encryption to protect network resources.
+----------------------------------------------------------------------------------------------------------------------------
+
+🔘DHCP ===>>
+____________________________________________________________________________________________________________________________
+DHCP stands for Dynamic Host Configuration Protocol. It's a network protocol that automates the process of assigning IP addresses 
+and other network configuration settings to devices on a network.
+
+● Dynamic Leasing:
+  o DHCP doesn't permanently assign IP addresses. Instead, it leases them to devices for a configured period (typically a few days or weeks).
+  o Once the lease expires, the device can renew it or obtain a new IP address from the DHCP server.
+  o This dynamic leasing allows for more efficient use of IP addresses, especially in situations where devices come and go on the 
+    network frequently, like laptops or smartphones.
