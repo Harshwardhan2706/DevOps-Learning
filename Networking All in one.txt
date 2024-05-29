@@ -11,46 +11,54 @@ Main networking topics =========>>
 🔘IP Addressing ===>>
 _____________________________________________________________________________________________________________
 
-  unique identification tag for a device on network, It allows other devices to find and send information to your computer or device.
+  unique identification tag for a device on network, It allows other devices to find and send information to your computer or 
+  device.
   This number, typically written as four sets of numbers separated by periods (e.g., 192.168.1.1).
 
   ● Versions: There are two main IP address versions:
 
-    IPv4: The original version, uses 32 bits and is written as four numbers between 0 and 255. Due to the growth of the internet, IPv4 addresses are becoming       scarce.
-    IPv6: The newer version, uses 128 bits and provides a much larger pool of addresses. It's written as eight groups of hexadecimal numbers separated by           colons   (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334).
+    IPv4: The original version, uses 32 bits and is written as four numbers between 0 and 255. Due to the growth of the internet, 
+    IPv4 addresses are becoming scarce.
+    IPv6: The newer version, uses 128 bits and provides a much larger pool of addresses. It's written as eight groups of 
+    hexadecimal numbers separated by colons   (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334).
 
   ● Assignment: IP addresses can be assigned in two ways:
 
     Static IP: A fixed address manually configured on a device. This is common for servers or network equipment.
-    Dynamic IP: An address automatically assigned by a server (like DHCP) when a device connects to a network. This is common for home users and mobile devices.
+    Dynamic IP: An address automatically assigned by a server (like DHCP) when a device connects to a network. This is common for 
+    home users and mobile devices.
 
   ● Public vs. Private IP:
 
     Public IP: An address that identifies a device on the public internet.
-    Private IP: An address used for internal networks and not directly accessible from the internet. There are     specific reserved ranges for private IPs.
+    Private IP: An address used for internal networks and not directly accessible from the internet. There are     specific 
+    reserved ranges for private IPs.
 -------------------------------------------------------------------------------------------------------------
 
 Subnetting ===>>
 _____________________________________________________________________________________________________________
 
-    A subnet mask, in the world of IP addressing (IPv4 specifically), is a 32-bit number that acts like a          divider,  separating an IP address into two parts: the network address and the host address.
+    A subnet mask, in the world of IP addressing (IPv4 specifically), is a 32-bit number that acts like a divider,  separating an 
+    IP address into two parts: the network address and the host address.
 
   ● Example: 
     A common subnet mask for a home network might be 255.255.255.0. In binary, this translates to           
-    11111111.11111111.11111111.00000000. Here, the first three octets (24 bits) with all ones represent the        network address, and the last octet (8 bits) with all zeros signifies the host portion.
+    11111111.11111111.11111111.00000000. Here, the first three octets (24 bits) with all ones represent the network address, and 
+    the last octet (8 bits) with all zeros signifies the host portion.
 ---------------------------------------------------------------------------------------------------------------
 
-CIDR ===>>
+🔘CIDR ===>>
 _____________________________________________________________________________________________________________
 
     CIDR, which stands for Classless Inter-Domain Routing, is a way to manage IP addresses more efficiently.
 
   ● CIDR Notation: 
     CIDR uses a notation like  "IP address/prefix length". For example, 192.168.1.0/24 represents an IP       
-    address with a /24 prefix length. This prefix length indicates the number of contiguous 1s in the subnet       mask (out of 32 bits for IPv4). In this case, /24 signifies a subnet mask of                                   255.255.255.0 (first 24 bits are 1s).
+    address with a /24 prefix length. This prefix length indicates the number of contiguous 1s in the subnet mask (out of 32 bits 
+    for IPv4). In this case, /24 signifies a subnet mask of 255.255.255.0 (first 24 bits are 1s).
 -------------------------------------------------------------------------------------------------------------
 
-OSI Model ===>>
+🔘OSI Model ===>>
 _____________________________________________________________________________________________________________
 
   The OSI model, also known as the Open Systems Interconnection model, is a conceptual framework that defines how network    
@@ -88,3 +96,48 @@ ________________________________________________________________________________
   7. Application Layer:
       Provides network services directly to user applications.
       Examples: Web browsing (HTTP), file transfer (FTP), email (SMTP).
+---------------------------------------------------------------------------------------------------------------------------
+
+🔘Protocols ===>>
+___________________________________________________________________________________________________________________________
+
+Protocol is a set of rules that govern how data is transmitted between devices.
+
+● Network protocols: 
+  These protocols define how data is formatted and transmitted over a network. Some common network protocols include:
+
+  ○ Transmission Control Protocol (TCP):
+    TCP is a reliable protocol that ensures that data is delivered accurately and in the correct order. It does this by breaking      data into packets, sending them to the destination device, and then checking to make sure they arrive correctly. TCP is used      for applications like web browsing and email, where it's important that data arrives accurately.
+
+  ○ User Datagram Protocol (UDP):
+    UDP is a connectionless protocol that is faster than TCP, but it is not as reliable. UDP does not guarantee that data will        arrive accurately or in the order it was sent. UDP is used for applications like streaming video and online gaming, where         speed is more important than accuracy.
+
+  ○ Internet Protocol (IP):
+    IP is the protocol that is responsible for routing data packets over the internet. IP addresses are used to identify devices      on the internet.
+
+● Application protocols:
+  Application protocols are the language applications use to talk to each other on a network. They define how data is exchanged     between software applications to perform specific tasks like web browsing, sending emails, or file transfers.
+
+  ○ Hypertext Transfer Protocol (HTTP): 
+    The foundation of the web, HTTP is used to transfer web pages and data between web servers and browsers. Whenever you visit a     website, your browser uses HTTP to communicate with the server and request or display information.
+
+  ○ Simple Mail Transfer Protocol (SMTP):  
+    This protocol handles the transfer of emails between servers. When you send an email, SMTP moves it from your email client        (like Outlook) to the recipient's mail server.
+
+  ○ File Transfer Protocol (FTP):  
+    This workhorse protocol allows for file transfers between computers. FTP establishes a     connection for users to upload or      download files from remote servers.
+
+  ○ Domain Name System (DNS):  
+    Not exactly user-facing, but crucial behind the scenes, DNS translates user-friendly domain names (like [invalid URL              removed]) into numerical IP addresses that computers use to locate servers.
+
+  ○ Post Office Protocol (POP3):  
+    This protocol retrieves emails from a mail server to your email client. POP3 downloads emails to your device, allowing you to     read them even when offline.
+
+  ○ Secure Sockets Layer/Hypertext Transfer Protocol Secure (SSL/HTTPS): 
+    This secure version of HTTP encrypts communication between a web browser and server. HTTPS is used for sensitive transactions     like online banking or shopping, where data privacy is critical.
+
+  ○ SSH Secure Shell: 
+    It's a cryptographic network protocol that enables secure communication between two computers over an unsecured network.
+    Imagine SSH as a secure encrypted tunnel you can use to access and control a remote computer or transfer files safely, even       over public Wi-Fi networks.
+
+  many other application protocols used for various purposes, like streaming video (RTP), instant messaging (IRC), or managing      network devices (SNMP).
