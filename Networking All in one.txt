@@ -160,8 +160,8 @@ Protocol is a set of rules that govern how data is transmitted between devices.
 🔘Network System ===>>
 _____________________________________________________________________________________________________________________________
 
-Network services are the backbone of any network, allowing devices and users to communicate and share resources. They operate at the 
-application layer (layer 7) of the OSI model and provide a variety of functionalities.
+Network services are the backbone of any network, allowing devices and users to communicate and share resources. They operate at 
+the application layer (layer 7) of the OSI model and provide a variety of functionalities.
 
 ● Types of Network Services:
 
@@ -189,11 +189,40 @@ application layer (layer 7) of the OSI model and provide a variety of functional
 
 🔘DHCP ===>>
 ____________________________________________________________________________________________________________________________
-DHCP stands for Dynamic Host Configuration Protocol. It's a network protocol that automates the process of assigning IP addresses 
-and other network configuration settings to devices on a network.
+DHCP stands for Dynamic Host Configuration Protocol. It's a network protocol that automates the process of assigning IP 
+addresses and other network configuration settings to devices on a network.
 
 ● Dynamic Leasing:
-  o DHCP doesn't permanently assign IP addresses. Instead, it leases them to devices for a configured period (typically a few days or weeks).
+  o DHCP doesn't permanently assign IP addresses. Instead, it leases them to devices for a configured period 
+    (typically a few days or weeks).
   o Once the lease expires, the device can renew it or obtain a new IP address from the DHCP server.
-  o This dynamic leasing allows for more efficient use of IP addresses, especially in situations where devices come and go on the 
-    network frequently, like laptops or smartphones.
+  o This dynamic leasing allows for more efficient use of IP addresses, especially in situations where devices come and 
+    go on the network frequently, like laptops or smartphones.
+----------------------------------------------------------------------------------------------------------------------------
+
+🔘Routing and Switching ===>>
+___________________________________________________________________________________________________________________________
+
+● Switching:
+  o Think of it as a traffic director within a building.
+  o Operates at Layer 2 (Data Link Layer) of the OSI model.
+  o Works within a single network segment (like a department in a company).
+  o Uses MAC addresses (unique hardware addresses burned into network devices) to identify devices on the network.
+  o Learns the MAC addresses of devices connected to its ports and forwards data frames (packets of information) to the 
+    specific port where the intended recipient resides.
+  o Creates a collision-free environment for devices to communicate efficiently.
+
+● Routing:
+  o Imagine it as a city's traffic dispatcher, directing cars between different neighborhoods.
+  o Operates at Layer 3 (Network Layer) of the OSI model.
+  o Connects multiple networks together (like connecting different company buildings).
+  o Uses IP addresses (logical addresses assigned to devices) to determine the best path for data packets to reach their 
+    destination network.
+  o Maintains a routing table that contains information about connected networks and the best paths to reach them.
+  o Forwards data packets based on their IP addresses and the routing table information.
+
+  Feature	                        Switching	                                      Routing
+  Layer (OSI)	                    Layer 2 (Data Link Layer)	                      Layer 3 (Network Layer)
+  Scope	                          Within a single network segment	                Connects multiple networks
+  Addressing	                    Uses MAC addresses	                            Uses IP addresses
+  Functionality	                  Forwards data frames based on MAC addresses	    Forwards data packets based on IP addresses and routing tables
