@@ -20,6 +20,8 @@ exit ===>> to come out of container
 docker diff <containername> ===>> to see the difference in continer 
 	C - change, A - Addition
 
+docker rm <container_name/container_Id> ===>> to remove container
+
 docker run ubuntu sleep 5 ===>> 
 	o Container Creation: Once the image is available, Docker will create a new container based on the "ubuntu" image.
 	o Command Execution: The sleep 5 command will be executed inside the newly created container. This command will pause the 	  container for 5 seconds.
