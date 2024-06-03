@@ -50,7 +50,7 @@ docker ps -a ===>> to list all running and stopped container
 docker stop <container name> ===>> use to stop running conatiner
 docker start <container_name ===>> to start already existing conatainer
 
-docker exec whalesay cat /etc/hosts ===>> use to see content inside the /etc/hosts
+docker exec whalesay cat /etc/hosts ===>> use to see content of container's inside the /etc/hosts
 
 docker attach <container> ===>> attach your terminal to a running Docker container.
 
