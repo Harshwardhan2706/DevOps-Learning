@@ -4,42 +4,50 @@ To install docker ===>>
 ___________________________________________________________________________________________________________
 sudo apt install docker.io
 sudo yum/apt install docker -y
+-----------------------------------------------------------------------------------------------------------
 
+To start the service ===>>
+__________________________________________________________________________________________________________
 service docker status ====>>  to ckeck docker is running or not
 service docker start ===>> to start the docker 
+----------------------------------------------------------------------------------------------------------
+
+To create the container ===>>
+_________________________________________________________________________________________________________
 docker run --name <container name> -it ubuntu /bin/bash ===>> to create container
-ls ===>> to see the list of directory inside container
-cd tmp/ ===>> go inside the tmp directory
-touch <filename> ===>> create file inside tmp directory
+docker run -it --name <containername> <imagename> /bin/bash ===>> to create the container from image 
 exit ===>> to come out of container
 docker diff <containername> ===>> to see the difference in continer 
 	C - change, A - Addition
-docker commit <containername> <imagename> ===>> to creat image
-docker images ===>> to see the list of created images
-docker run -it --name <containername> <imagename> /bin/bash ===>> to create the container from image 
+----------------------------------------------------------------------------------------------------------
 
+To create images ===>> 
+_________________________________________________________________________________________________________
+docker commit <containername> <imagename> ===>> to create image
+docker build -t test . ===>> to create docker image from docker file
+docker images ===>> to see the list of created images
+---------------------------------------------------------------------------------------------------------
+
+To create docker file ===>>
+_________________________________________________________________________________________________________
 Dockerfile === A text file which contains some kset of instruction.
 		OR Automation of Docker image creation.
 
-FROM == for base image command must be on top of docker file.
-RUN == to execute the command it will create layer of image
-MAINTAINER == Author/Owner/Description
-COPY == copy file from local system (docker VM) we need to provide source, destination (we can't download file from any internet or remote repo)
-ADD == similar to copy but it provide feature to download file from internet
-EXPOSE == to expose point such as port 8080 for tomcat, port 80 for nginx
-WORKDIR == To set working directory for container
-CMD == excute command but during container creation
-ENTRYPOINT == Similar to CMD but has higher priority over CMD, first command will be executed by ENTRYPOINT only
-ENV == Environment variable
+	FROM == for base image command must be on top of docker file.
+	RUN == to execute the command it will create layer of image
+	MAINTAINER == Author/Owner/Description
+	COPY == copy file from local system (docker VM) we need to provide source, destination (we can't download file from any 	internet or remote repo)
+	ADD == similar to copy but it provide feature to download file from internet
+	EXPOSE == to expose point such as port 8080 for tomcat, port 80 for nginx
+	WORKDIR == To set working directory for container
+	CMD == excute command but during container creation
+	ENTRYPOINT == Similar to CMD but has higher priority over CMD, first command will be executed by ENTRYPOINT only
+	ENV == Environment variable
 
 
 Vi Dockerfile ===>> to create docker file
 	FROM ubuntu
 	RUN echo "any thing" > /tmp/testfile
-docker build -t test . ===>> to create docker image from docker file
-docker run -it --name <containername> <imagename> /bin/bash ===>> to create the container from image 
-ls ===>> to see the list of directory inside container
-cd tmp/ ===>> go inside the tmp directory
 
 vi Dockerfile ===>> 
 	FROM ubuntu
