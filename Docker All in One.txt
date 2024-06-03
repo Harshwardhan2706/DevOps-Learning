@@ -1,6 +1,10 @@
 DOCKER VERSION ~ 20.10.23
 
-yum install docker -y ===>> to install docker 
+To install docker ===>>
+___________________________________________________________________________________________________________
+sudo apt install docker.io
+sudo yum/apt install docker -y
+
 service docker status ====>>  to ckeck docker is running or not
 service docker start ===>> to start the docker 
 docker run --name <container name> -it ubuntu /bin/bash ===>> to create container
