@@ -49,6 +49,11 @@ docker stop <container name> ===>> use to stop running conatiner
 docker start <container_name ===>> to start already existing conatainer
 
 docker exec whalesay cat /etc/hosts ===>> use to see content inside the /etc/hosts
+
+docker attach <container> ===>> attach your terminal to a running Docker container.
+
+To detach and return to your host terminal ===>> 	Linux/macOS: Ctrl + P, then Ctrl + Q
+							Windows: Ctrl + P, then Enter
 ----------------------------------------------------------------------------------------------------------
 
 To create images ===>> 
