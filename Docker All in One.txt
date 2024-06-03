@@ -19,6 +19,36 @@ docker run -it --name <containername> <imagename> /bin/bash ===>> to create the 
 exit ===>> to come out of container
 docker diff <containername> ===>> to see the difference in continer 
 	C - change, A - Addition
+
+docker run ubuntu sleep 5 ===>> 
+	o Container Creation: Once the image is available, Docker will create a new container based on the "ubuntu" image.
+	o Command Execution: The sleep 5 command will be executed inside the newly created container. This command will pause the 	  container for 5 seconds.
+	o Container Termination: After 5 seconds, the sleep command finishes, and the container will automatically stop and be 		  removed by default behavior.
+docker run -d ubuntu sleep 5 ===>> run in detach mode (run in bg)
+docker run -it ubuntu sleep 5 ===>> run in interactive mode
+docker run nginx ===>> 
+	o Uses the downloaded Nginx image to create and start a running Docker container.
+	o Create a new container based on the Nginx image.
+	o Start the Nginx web server process inside the container.
+
+docker pull nginx ===>>
+	o Downloads the Nginx image from Docker Hub (or another registry) to your local system.
+
+Key Differences:
+	o Action: docker pull downloads, docker run creates and runs.
+	o Output: docker pull creates a local image, docker run creates a running container.
+	o Subsequent Usage: You can run docker run multiple times using the same image to create new containers.
+
+When to use each command:
+	o Use docker pull when you don't have the desired image available locally and want to download it for future use.
+	o Use docker run when you want to start a new instance of an application or service based on an existing image.
+
+docker ps ===>> to see running container on your docker host
+docker ps -a ===>> to list all running and stopped container
+docker stop <container name> ===>> use to stop running conatiner
+docker start <container_name ===>> to start already existing conatainer
+
+docker exec whalesay cat /etc/hosts ===>> use to see content inside the /etc/hosts
 ----------------------------------------------------------------------------------------------------------
 
 To create images ===>> 
@@ -26,6 +56,9 @@ ________________________________________________________________________________
 docker commit <containername> <imagename> ===>> to create image
 docker build -t test . ===>> to create docker image from docker file
 docker images ===>> to see the list of created images
+docker rmi nginx ===>> use to remove image 
+docker rmi -f nginx ===>> use to remove image even it's being used by running container
+docker rmi <image_id> ===>> remove image using image id
 ---------------------------------------------------------------------------------------------------------
 
 To create docker file ===>>
