@@ -16,6 +16,10 @@ To create the container ===>>
 _________________________________________________________________________________________________________
 docker run --name <container name> -it ubuntu /bin/bash ===>> to create container
 docker run -it --name <containername> <imagename> /bin/bash ===>> to create the container from image 
+docker run -p <host_port>:<container_port> <image_name> [options] ===>> to run docker conyainer at specific port
+	<host_port>: This is the port number you want to use on your host machine to access the container's service.
+	<container_port>: This is the port number that the service inside the container listens on.
+
 exit ===>> to come out of container
 docker diff <containername> ===>> to see the difference in continer 
 	C - change, A - Addition
@@ -27,7 +31,8 @@ docker run ubuntu sleep 5 ===>>
 	o Command Execution: The sleep 5 command will be executed inside the newly created container. This command will pause the 	  container for 5 seconds.
 	o Container Termination: After 5 seconds, the sleep command finishes, and the container will automatically stop and be 		  removed by default behavior.
 docker run -d ubuntu sleep 5 ===>> run in detach mode (run in bg)
-docker run -it ubuntu sleep 5 ===>> run in interactive mode
+docker run -it ubuntu sleep 5 ===>> run in interactive mode, i means interactive mode and t means terminal.
+
 docker run nginx ===>> 
 	o Uses the downloaded Nginx image to create and start a running Docker container.
 	o Create a new container based on the Nginx image.
@@ -56,6 +61,7 @@ docker attach <container> ===>> attach your terminal to a running Docker contain
 
 To detach and return to your host terminal ===>> 	Linux/macOS: Ctrl + P, then Ctrl + Q
 							Windows: Ctrl + P, then Enter
+docker inspect <container_name> ===>> display detailed information about that specific container.
 ----------------------------------------------------------------------------------------------------------
 
 To create images ===>> 
