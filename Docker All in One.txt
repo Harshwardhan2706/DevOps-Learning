@@ -20,6 +20,13 @@ docker run -p <host_port>:<container_port> <image_name> [options] ===>> to run d
 	<host_port>: This is the port number you want to use on your host machine to access the container's service.
 	<container_port>: This is the port number that the service inside the container listens on.
 
+docker run -d --name mysql-db \
+         -e MYSQL_ROOT_PASSWORD=db_pass123 \
+         mysql:latest  ===>> Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the 			     correct environment variable to use for setting the root password.
+
+docker run -d -p 38282:8080 -e APP_COLOR=blue --name blue-app kodekloud/simple-webapp ===>> 
+	to run a container named blue-app using the kodekloud/simple-webapp image, setting the APP_COLOR environment variable to 	blue, and mapping port 38282 on the host to port 8080 within the container:
+
 exit ===>> to come out of container
 docker diff <containername> ===>> to see the difference in continer 
 	C - change, A - Addition
