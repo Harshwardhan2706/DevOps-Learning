@@ -119,6 +119,45 @@ gzip test.tar ===>> to conver test.tar into zip file
 rm -rf test ===>> to remove the file forcefully
 docker build -t newimage . ===>> 
 docker run -it --name newcontainer newimage /bin/bash ===>>
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Docker Compose ===>>
+______________________________________________________________________________________________________________________________________
+
+Docker Compose is a tool used to define and run multi-container Docker applications. It allows you to configure your entire application's services with a single YAML file.
+
+🔘Compose File (docker-compose.yml): 
+	This is the YAML file where you define the services that make up your application, along with their configurations. It specifies things 	like image names, ports, volumes, and environment variables for each service.
+
+			docker compose.yml version 1
+					
+					redis:
+						image: redis
+					db:
+						image: posgres:9.4
+					vote:
+						image: vote-app
+						ports: 
+							-5000:80
+						links:
+							-redis
+					worker:
+						image: worker-app
+						links:
+							-redis
+							-db
+					result: 
+						image: result-app
+						ports: 
+							-5000:80
+						links:
+							-db
+
+🔘Here's a basic workflow for using Docker Compose:
+
+	o Create Dockerfiles: Define Dockerfiles for each service in your application, specifying the base image, dependencies, and startup 				      commands.
+	o Create docker-compose.yml: In this YAML file, define your application's services, specifying the corresponding Dockerfile, ports, 					     volumes, and other configurations.
+	o Build and Run: Use the docker-compose build command to build the images for your services based on the Dockerfiles. Then, use docker-				 compose up to start and run all the services defined in your docker-compose.yml file.
 
 
 create volume by using image =====-------------------------
