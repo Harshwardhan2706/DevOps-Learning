@@ -24,6 +24,13 @@ docker run -d --name mysql-db \
          -e MYSQL_ROOT_PASSWORD=db_pass123 \
          mysql:latest  ===>> Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the 			     correct environment variable to use for setting the root password.
 
+docker run -d --name clickcounter --link redis:redis -p 8085:5000 kodekloud/click-counter ===>> 
+	create a simple container called clickcounter with the image kodekloud/click-counter, link it to the redis container that 	we created in the previous task and then expose it on the host port 8085
+
+
+The clickcounter app run on port 5000.
+if you are unsure, check the hints section for the exact commands.
+
 docker run -d -p 38282:8080 -e APP_COLOR=blue --name blue-app kodekloud/simple-webapp ===>> 
 	to run a container named blue-app using the kodekloud/simple-webapp image, setting the APP_COLOR environment variable to 	blue, and mapping port 38282 on the host to port 8080 within the container:
 
