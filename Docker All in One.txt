@@ -182,6 +182,11 @@ docker-compose logs ==>> you can view the combined logs from all your running se
 
 🔴 Docker Volume ===>> 
 _______________________________________________________________________________________________________________________________________
+docker run -v /opt/data:/var/lib/mysql -d --name mysql-db -e MYSQL_ROOT_PASSWORD=db_pass123 mysql ===>> 
+		Run a mysql container again, but this time map a volume to the container so that the data stored by the container is stored 
+                at /opt/data on the host.
+		Use the same name : mysql-db and same password: db_pass123 as before. Mysql stores data at /var/lib/mysql inside the container.
+
 yum install docker -y >>>
 service docker start >>>>
 vi DockerFile >>>>
@@ -218,8 +223,23 @@ docker volume create rm <volumename> ===>> to delete volume
 docker volume prune ===>> it remove all unused docker volume
 docker volume inspect <volumename> ===>> to check volume details
 docker container inspect <containername> ===>> to check container details
+-------------------------------------------------------------------------------------------------------------------------------------------
 
+🔴 Docker Network ===>>
+______________________________________________________________________________________________________________________________________
+docker network create --driver bridge --subnet 182.18.0.1/24 --gateway 182.18.0.1 wp-mysql-network ===>> 
+	Create a new network named wp-mysql-network using the bridge driver. Allocate subnet 182.18.0.1/24. Configure Gateway 182.18.0.1
+docker run -e DB_Password=db_pass123 -e DB_Host=mysql-db --network wp-mysql-network -p 38080:8080 --name  webapp --link mysql-db:mysql-db -d kodekloud/simple-webapp-mysql ===>> 
+		Deploy a web application named webapp using the kodekloud/simple-webapp-mysql image. Expose the port to 38080 on the host.
+		The application makes use of two environment variable:
+		1: DB_Host with the value mysql-db.
+		2: DB_Password with the value db_pass123.
+		Make sure to attach it to the newly created network called wp-mysql-network.
+		Also make sure to link the MySQL and the webapp container.
 
+docker network ls ===>> to check list of network available
+docker network inspect bridge ===>> to see all network details
+docker run -d --name alpine-2 --network=none alpine ===>> Run a container named alpine-2 using the alpine image and attach it to the none network.
 
 🔴 Difference between Expose and publish ===>>
 _______________________________________________________________________________________________________________________________
