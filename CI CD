@@ -1,1 +1,34 @@
+🔴 CICD Definition ===>>
+_________________________________________________________________________________________________________________
+(CI) continuous integration, (CD) countinuos deployment and also (CD) continuous delivery is a process of software 
+delivery by automating task like build, test and deploy.
 
+🔘Countinuous Integration --
+    1. Code Commit:  A developer makes changes to the codebase and commits them to a version control system (VCS) like Git.
+    2. Code Checkout: The CI pipeline retrieves the latest committed code from the VCS repository.
+    3. Build Stage: The code is compiled or assembled into a usable format
+    4. Test Stages:
+        o Unit tests (verify individual code units)
+        o Integration tests (ensure different code parts work together)
+        o Static code analysis (identifies potential issues without running code)
+
+🔘Continuous Delivery --
+    1. Leverage CI:
+          CD relies on a well-established CI pipeline that performs automated builds, tests, and generates feedback for code changes.
+    2. Code Promotion (Optional):
+          After successful testing in the CI pipeline, the code might be promoted to a staging environment. 
+          allowing for final testing and validation before pushing to live users.
+    3. Automated Deployment:
+          Upon successful completion of all stages (CI and potentially staging), the CD pipeline triggers an automated deployment process. 
+          This involves packaging the approved code into a deployable artifact and sending it to the production environment.
+    4. Environment Management:
+          CD tools often manage deployments across different environments (staging, production, etc.). 
+          They can automate configuration changes and ensure consistency between environments.
+5. Approval Gates (Optional):
+          In some CD pipelines, there might be manual approval gates before deploying to production. 
+          This allows for human oversight and control over critical releases.
+6. Monitoring and Rollbacks:
+          After deployment, CD pipelines often integrate with monitoring tools to track the health and performance of the application in production.
+          If issues arise, some CD pipelines can facilitate rollbacks to previous versions if necessary.
+
+🔘continuous Deployment -- Automates the entire deployment process (Continuous Delivery), including pushing the code live to production.
