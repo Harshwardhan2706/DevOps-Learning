@@ -1,0 +1,51 @@
+🔴 ECS ==> 
+    It's a managed container orchestration service offered by Amazon Web Services (AWS) that helps you deploy, run, and scale containerized applications.
+    ECS automates the deployment, scaling, and management of containerized applications across a cluster of EC2 instances or AWS Fargate.
+
+🔴 Core Components ==>
+
+    🔘ECS Cluster ==> 
+      The central unit that groups resources and orchestrates container tasks. It doesn't directly run containers but manages their deployment, scaling, and networking.
+
+      Optional Compute Resources:
+       o EC2 Instances: You can configure your cluster to use EC2 instances as compute resources to run container tasks. ECS can launch and manage these 
+         instances, or you can bring your own existing EC2 instances into the cluster.
+       o AWS Fargate: A serverless compute engine for containers. With Fargate, ECS provisions, scales, and manages the underlying compute resources, 
+         eliminating the need to manage EC2 instances yourself.
+
+    🔘Task Definition ==> 
+      A blueprint that defines how container tasks should be run. It includes details like:
+      Container Image: The Docker image to be used for the task.
+      CPU and Memory Requirements: Hardware resource allocation for the container.
+      Environment Variables: Key-value pairs to configure the container environment.
+      Ports: Network ports exposed by the container.
+      Volumes: Data volumes to be mounted with the container.
+      Security Considerations: Security policies applied to the container.
+
+    🔘Task ==> 
+      A single execution of a task definition. It represents a running instance of your containerized application. Tasks have a lifecycle that can be running, 
+      pending, or stopped. ECS manages the lifecycle of tasks, ensuring they are healthy and restarting them if they fail.
+
+    🔘Service ==>
+      A persistent entity that represents the desired state for your application. It references a task definition and specifies:
+      Desired Task Count: The number of tasks you want to run concurrently for your application.
+      Scheduling and Placement Strategies: How tasks are scheduled and placed on compute resources within the cluster.
+      Load Balancing: Integration with load balancers to distribute traffic across healthy tasks.
+      Service Discovery: Mechanisms for tasks to discover and communicate with each other.
+      Auto Scaling: Rules to automatically scale the number of tasks up or down
+
+
+   🔘ECS Agent ==> 
+      A software agent that runs on each EC2 instance in an ECS cluster. It communicates with the ECS service to receive task definitions, download container images, 
+      and start and manage container tasks on the instance. (Not applicable to Fargate)
+
+🔴 How They Work Together:
+
+    You create a task definition that specifies your container image and configuration.
+    You create a service that references the task definition and defines the desired number of tasks to run concurrently.
+    You deploy the service to an ECS cluster.
+    The ECS service makes requests to the ECS cluster.
+    The ECS cluster interacts with the ECS agents running on EC2 instances (if applicable) or provisions resources on Fargate.
+    ECS agents or Fargate pull the container image from the container registry (e.g., Amazon ECR) and start running container tasks based on the task definition.
+    ECS manages the lifecycle of tasks, ensuring they are healthy, restarting them if they fail, and scaling the service up or down based on your service definition.
+  
