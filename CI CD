@@ -1,5 +1,5 @@
 🔴 CICD Definition ===>>
-_________________________________________________________________________________________________________________
+________________________________________________________________________________________________________________________________________________________
 (CI) continuous integration, (CD) countinuos deployment and also (CD) continuous delivery is a process of software 
 delivery by automating task like build, test and deploy.
 
@@ -32,3 +32,106 @@ delivery by automating task like build, test and deploy.
           If issues arise, some CD pipelines can facilitate rollbacks to previous versions if necessary.
 
 🔘continuous Deployment -- Automates the entire deployment process (Continuous Delivery), including pushing the code live to production.
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+🔴 EXAMPLE ==>>
+___________________________________________________________________________________________________________________________________________________________
+
+                                   ___________________________________________________________________________________
+                                                name: CICD
+                                                
+                                                on:
+                                                  push:
+                                                    branches: [main,master]
+                                                    
+                                                jobs:
+                                                  build-and-deploy:
+                                                    runs-on: [ubuntu-latest]
+                                                    steps:
+                                                      - name: Checkout Source
+                                                        uses: actions/checkout@v3
+                                                      - name: Configure AWS credentials
+                                                        uses: aws-actions/configure-aws-credentials@v3
+                                                        with:
+                                                          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                                                          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                                                          aws-region: 'ap-south-1'
+                                                      - name: Login to Amazon ECR
+                                                        id: login-ecr
+                                                        uses: aws-actions/amazon-ecr-login@v2
+                                                
+                                                      - name: Build, tag, and push image to Amazon ECR
+                                                        id: build-image
+                                                        env:
+                                                          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+                                                          IMAGE_TAG: latest
+                                                          ECR_REPOSITORY: nodejs-app
+                                                        run: |
+                                                          # Build a docker container and
+                                                          # push it to ECR so that it can
+                                                          # be deployed to ECS.
+                                                          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+                                                          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+                                                          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+                                                      - name: Fill in the new image ID in the Amazon ECS task definition
+                                                        id: task-def
+                                                        uses: aws-actions/amazon-ecs-render-task-definition@v1
+                                                        with:
+                                                          task-definition: node-app-task.json
+                                                          container-name: myCont
+                                                          image: ${{ steps.build-image.outputs.image }}
+                                                      - name: Deploy Amazon ECS task definition
+                                                        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+                                                        with:
+                                                          task-definition: ${{ steps.task-def.outputs.task-definition }}
+                                                          service: node-app-service
+                                                          cluster: nodejs-app-DEV
+                                                          wait-for-service-stability: true
+                               __________________________________________________________________________________________________
+
+Explanation ===>>
+                        Trigger:
+                        
+                        on: This section defines the event that triggers the pipeline workflow. In this case, the pipeline runs:
+                        When there's a push to the main or master branch.
+                        Job:
+                        
+                        jobs: This section defines a single job named build-and-deploy. This job performs all the build, image creation, and deployment tasks within the pipeline.
+                        Job Steps:
+                        
+                        Checkout Source:
+                        
+                        This step uses the actions/checkout@v3 action to check out the source code from the GitHub repository.
+                        Configure AWS Credentials:
+                        
+                        This step uses the aws-actions/configure-aws-credentials@v3 action to securely configure AWS credentials for the pipeline to interact with AWS services.
+                        It retrieves the access key ID and secret access key from GitHub Secrets, which are secure environment variables stored within the repository.
+                        Login to Amazon ECR:
+                        
+                        This step uses the aws-actions/amazon-ecr-login@v2 action to log in to the Amazon ECR (Elastic Container Registry) where the Docker image will be stored.
+                        Build, Tag, and Push Image to Amazon ECR:
+                        
+                        This step performs the following actions:
+                        Builds a Docker image using the docker build command.
+                        Sets environment variables for the image tag (latest), ECR registry URI (ECR_REGISTRY), and ECR repository name (ECR_REPOSITORY). These variables are used within the command.
+                        Pushes the built image to the specified ECR repository using docker push.
+                        Saves the image URI (including registry, repository, and tag) in a GitHub output variable named image for later use.
+                        Fill in the New Image ID in the Amazon ECS Task Definition:
+                        
+                        This step uses the aws-actions/amazon-ecs-render-task-definition@v1 action to update an existing ECS task definition file (node-app-task.json).
+                        It replaces a placeholder for the container image (image) with the actual image URI retrieved from the previous step ({{ steps.build-image.outputs.image }}).
+                        This ensures the task definition references the newly built and pushed image.
+                        Deploy Amazon ECS Task Definition:
+                        
+                        This step uses the aws-actions/amazon-ecs-deploy-task-definition@v1 action to deploy the updated ECS task definition.
+                        It specifies the following details:
+                        task-definition: The path to the updated task definition file ({{ steps.task-def.outputs.task-definition }}).
+                        service: The name of the ECS service that needs to be updated with the new task definition (node-app-service).
+                        cluster: The name of the ECS cluster where the service is running (nodejs-app-DEV).
+                        wait-for-service-stability: This option (set to true) ensures the pipeline waits for the ECS service to stabilize after the deployment before finishing.
+                        Overall Functionality:
+                        
+                        When a push occurs to the main or master branch, the pipeline triggers.
+                        The pipeline retrieves AWS credentials securely and logs in to ECR.
+                        It builds a Docker image, pushes it to ECR, and updates the ECS task definition with the new image URI.
+                        Finally, it deploys the updated task definition to the specified ECS service, ensuring a smooth update process.
