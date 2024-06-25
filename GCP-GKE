@@ -1,0 +1,24 @@
+🔴 GKE ===>>
+    It's a managed, container orchestration service offered by Google Cloud Platform (GCP). In simpler terms, it's a platform that helps you deploy,
+    manage, and scale containerized applications.
+
+🔴 Core Components ===>>
+
+    🔘Cluster: A group of virtual machines (VMs) called nodes that run your containerized workloads.
+    🔘Control Plane: The brain of the cluster, responsible for managing the worker nodes and scheduling container deployments. It consists of several components:
+      o API Server: The central point of communication for the cluster. You interact with the API server to manage your workloads.
+      o etcd: A highly available key-value store that stores the cluster state (configuration information).
+      o Scheduler: Determines where to deploy pods on the available nodes based on resource requirements and other factors.
+      o Controllers: A set of processes that maintain the desired state of the cluster by managing pods, services, and other resources.
+    🔘Nodes: The worker machines in the cluster that run your containerized applications. They include:
+      o Container Runtime: Software like Docker or containerd that manages the lifecycle of containers (starting, stopping, restarting).
+      o Kubelet: The agent on each node that communicates with the control plane and is responsible for running containers.
+
+🔴 How it Works ===>>
+
+    Deployment: You define your application using container images and deployment configurations (manifests).
+    Scheduling: The Kubernetes API server in the control plane receives deployment requests.
+    Scheduler: Analyzes pod resource requirements and node availability and schedules pods to run on appropriate nodes.
+    Kubelet: On each node, the kubelet receives instructions from the control plane and starts the container(s) defined in the pod.
+    Services: Define how pods are accessed within the cluster or externally. Services act as abstractions for pods, allowing consistent access even if the underlying pod IP changes.
+    Networking: Pods can communicate with each other within the cluster using the Kubernetes service network. External traffic can be routed to services through a load balancer if needed.
