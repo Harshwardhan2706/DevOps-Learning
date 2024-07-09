@@ -135,3 +135,28 @@ Explanation ===>>
                         The pipeline retrieves AWS credentials securely and logs in to ECR.
                         It builds a Docker image, pushes it to ECR, and updates the ECS task definition with the new image URI.
                         Finally, it deploys the updated task definition to the specified ECS service, ensuring a smooth update process.
+
+
+================================🔴🔴🔴Intervew Questions🔴🔴🔴===================================
+
+1. What are the core principles of CI/CD?
+    1. Automation:
+    2. Continuous Integration:    
+    3. Fast Feedback:
+    4. Short Feedback Loops:
+    5. Version Control Integration:
+    6. Infrastructure as Code (IaC):
+    7. Repeatability and Reliability:
+    8. Security:
+    9. Monitoring:
+    10. Continuous Improvement
+
+2. Explain the benefits of implementing a CI/CD pipeline.
+    1. Increased Efficiency and Speed
+    2. Improved Software Quality
+    3. Enhanced Reliability and Consistency
+    4. Reduced Risk and Easier Rollbacks
+    5. Improved Collaboration and Communication
+
+
+
