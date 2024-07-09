@@ -158,5 +158,54 @@ Explanation ===>>
     4. Reduced Risk and Easier Rollbacks
     5. Improved Collaboration and Communication
 
+3. How does CI/CD differ from DevOps?
+    In essence, CI/CD is a core set of practices within the broader DevOps philosophy. 
+    DevOps leverages CI/CD automation but also emphasizes cultural change, communication, 
+    and continuous improvement throughout the entire software development lifecycle.
+
+4. Describe the trade-offs between continuous deployment and feature flag releases.
+    🔘Use CD for: Low-risk updates, bug fixes, and features with minimal impact on core functionality.
+    🔘Use FFR for: Critical features, features requiring A/B testing, or situations where you need to 
+                 control the rollout process for better risk management.
+
+    A Hybrid Approach:
+
+    Many teams adopt a hybrid approach, combining CD with FFRs. You can leverage CD for low-risk deployments 
+    and utilize FFRs for critical features or those requiring controlled rollouts.
+
+5. What are some challenges you've faced in implementing CI/CD pipelines, and how did you overcome them?
+    Challenge 1: Complex Dependencies
+    Challenge 2: Monitoring and Alerting
+
+6. Compare and contrast popular CI/CD tools like Jenkins, Azure DevOps, and GitHub Actions. 
+    Feature	                Jenkins	            Azure DevOps	    GitHub Actions
+    Pricing	                Free (Open Source)	Paid Subscription	Free (Public Repos)
+    Deployment Model	    Self-Hosted	        Cloud-Based	        Cloud-Based
+    Ease of Use	            Moderate	        Easy	            Easy
+    Customization	        Extensive	        Moderate	        Moderate
+    Community and Support	Large and Active	Good	            Good (GitHub Community)
+    Integration with VCS	Flexible	        Good (Azure Repos)	Excellent (GitHub)
+    Focus	                Customizable	    Continuous Delivery	CI/CD for Developers
+
+7. Explain your experience with containerization technologies like Docker and Kubernetes. 
+
+8. How would you leverage infrastructure as code (IaC) tools like Terraform or AWS CloudFormation in your CI/CD pipeline?
+    1. Infrastructure Definition
+    2. Integration with CI/CD Pipeline
+    3. Pipeline Stages:
+
+        🔘Pre-build (Optional): In this stage, you can leverage Terraform to provision temporary infrastructure for testing 
+           or development purposes. This allows developers to test their application in a simulated production environment.
+        🔘Build: This stage typically focuses on building your application code.
+        🔘Test: In this stage, you can use Terraform to provision testing environments where your built application can be 
+           deployed and thoroughly tested.
+        🔘Deploy: This is where Terraform shines. Terraform commands can be used to:
+        🔘Provision production infrastructure: Terraform can automatically create the necessary resources (servers, databases, etc.) 
+           in your production environment based on your configuration files.
+        🔘Deploy application code: After infrastructure provisioning, you can use deployment tools within your pipeline to deploy 
+           the built application code onto the newly created infrastructure.
+        🔘Update infrastructure (Optional): If your application requires infrastructure changes, Terraform's "apply" command can 
+           be used to update the infrastructure in your production environment to match the desired state defined in your configuration files.
+
 
 
