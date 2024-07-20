@@ -1,5 +1,5 @@
 Q.1 Tell me about yourself 
-Q2. Do you face any challenges while creating the DevOps pipeline?
+Q2. Do you face any challenges while creating the DevOps pipeline? (pending)***
 Q3. Okay, so how do your container communicate in Kubernetes?
 Q4. So, if you want to restrict the communication between the Kubernetes pod, how would you restrict that one?
 Q5. What is a virtual private cloud or VNet? Can you elaborate about why we can use the VNet and what was the use of to use the VNets in the DevOps?
