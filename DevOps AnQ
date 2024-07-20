@@ -1,0 +1,18 @@
+Q.1 Tell me about yourself 
+Q2. Do you face any challenges while creating the DevOps pipeline?
+Q3. Okay, so how do your container communicate in Kubernetes?
+Q4. So, if you want to restrict the communication between the Kubernetes pod, how would you restrict that one?
+Q5. What is a virtual private cloud or VNet? Can you elaborate about why we can use the VNet and what was the use of to use the VNets in the DevOps?
+Q6. Can you tell me something about the Ansible work in the DevOps?
+Q7. What is Resilience Testing
+Q8. KPI’s in DevOps
+Q9. Various branching strategies in Version Control
+Q10. Difference b/w feature branching and task branching
+Q11. Difference b/w continuous development and continuous delivery
+Q12. Can you explain the different phases which is involved in the DevOps methodology?
+Q13. Blue Green Deployment pattern
+Q14. What is Unit testing and web based testing
+Q15. Difference b/w CVCS and DVCS
+Q16. So, let's take in a suppose, you and me are working on the one project. Okay. And you and me are working on the same file. Okay? So, suddenly what happened, I just pushed my code into the repository and without informing anyone. And suddenly what happened, you also did the same thing. Okay. So, there is a merge conflict is happened. How you can resolve that merge conflicts? 
+Q17. How would you set up the VPC?
+Q18. can you describe about the Iac and configuration management?
