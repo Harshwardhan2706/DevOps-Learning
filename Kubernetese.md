@@ -2,4 +2,5 @@
   - Node - A Node is a single machine. It can be a physical computer in a data center or, more commonly, a Virtual Machine (VM).
   - Cluster - A Cluster is a collection of nodes grouped together to work as a single powerful system.
 --------------------------------------------------------------
-1. The Control Plane (The Brain) - h
+1. The Control Plane (The Brain) - The Control Plane is responsible for maintaining the "desired state" of the cluster.
+
