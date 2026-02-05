@@ -14,3 +14,7 @@ Installing Homebrew on the MaC ---
     7  eval "$(/opt/homebrew/bin/brew shellenv zsh)"
     8  brew help
     9  brew --version
+
+    
+
+  
