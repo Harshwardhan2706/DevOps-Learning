@@ -1,5 +1,7 @@
 ![Uploading image.png…]()
+
 [Uploading Gemini_Generated_Image_2esyhs2esyhs2esy.png…]()
+
 Installing Homebrew on the MaC ---
   harshwardhan_baghel@Harshwardhans-MacBook-Air ~ % history
     1  brew update
