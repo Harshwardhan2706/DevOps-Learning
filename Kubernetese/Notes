@@ -15,6 +15,23 @@ Installing Homebrew on the MaC ---
     8  brew help
     9  brew --version
 
-    
+Important Brew commands
+
+    brew search [package]: Search for a tool. (e.g., brew search python)
+    brew install [package]: The heavy lifter. Downloads and installs the tool.
+    brew info [package]: Shows you details about a tool (its version, website, and requirements) before you install it.
+
+    brew update: Updates Homebrew itself and the list of available software (the "map").
+    brew upgrade: Actually updates the software you’ve installed to the latest versions.
+
+    brew list: Shows everything you have installed via Brew.
+    brew uninstall [package]: Removes a tool you no longer need.
+    brew cleanup: Deletes old versions and "leftover" files from previous installs. It’s like taking out the trash.
+
+    brew doctor: This scans your system for common problems and tells you exactly how to fix them. It is the first thing you should do if something goes wrong.
+
+    brew install --cask vlc: Installs the VLC Media Player.
+    brew install --cask visual-studio-code: Installs VS Code.
+
 
   
