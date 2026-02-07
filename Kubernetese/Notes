@@ -97,6 +97,95 @@ Kubectl Commands ----
       kube-public	          Publicly readable data
       kube-node-lease	      Node heartbeat information
     kubectl create namespace dev: create namespace for dev environment
+    kubectl describe service nginx-service: get the deatils of the service
+    kubectl get pod -o wide: is the "expert view" for inspecting pods.
+    kubectl get deployment nginx-deployment -o yaml
+    kubectl get deployment nginx-deployment -o yaml: retrieve the full, "source of truth" document from the etcd database and display it in its raw YAML data structure.
+    kubectl get deployment nginx-deployment -o yaml > nginx-deployment-result.yaml: you are instructing your shell to take the Standard Output (stdout) of the kubectl query—which 
+                                                                                    contains the full internal representation of your deployment in the cluster—and redirect it 
+                                                                                    into a new physical file on your Mac named nginx-deployment-result.yaml.
+    head -n 20 nginx-deployment-result.yaml: To verify the file was created and see the first few lines.
+    kubectl delete -f <deployment/service config.file>: to delete those files.
+    kubectl get all: to get the all component inside cluster/minikube
+    echo -n 'username' | base64: binary-to-text encoding (-n: This flag tells echo not to append a trailing newline (\n))
+    kubectl get all | grep mongob: get all mongodb ones
+    minikube service mongo-express-service: this will assign an external IpAddress.
+    kubectl logs -l app=mongodb: selects the pod by its label and show the logs.
+    kubectl get svc mongo-express-service: an inspection command used to view the networking details of a specific Service.
+    kubectl port-forward svc/mongo-express-service 8081:8081\n: a networking tunnel that creates a direct link between your local machine (MacBook) and a Service inside your Kubernetes cluster.
+                                                                Technically, it allows you to access a private cluster resource without setting up a complex LoadBalancer or Ingress.
+    kubectl rollout restart deployment mongo-express: the "cleanest" way to reboot your application without changing your configuration or deleting the resource entirely.
+
+🔴 Real-time Scenario =========================================================================
+🐞 Issue ----------------------------
+mongo-express UI returns “Unauthorized” after exposing service via Minikube.
+
+📌 Symptoms --
+mongo-express pod was in Running state
+Service was created as NodePort
+Running:
+  <minikube service mongo-express-service>
+opened:
+  <http://127.0.0.1:<random-port>>
+Browser consistently returned:
+  "Unauthorized"
+
+🔍 Root Cause ----------------------
+When using Minikube with Docker/OrbStack driver on macOS, NodePort services are exposed via a local tunnel, which maps the service to a random localhost port.
+The redirection from NodePort → 127.0.0.1:<random-port> was expected behavior, not an error.
+The actual issue was application-level:
+mongo-express enables Basic Authentication by default
+Only MongoDB connection credentials were configured using:
+  ME_CONFIG_MONGODB_ADMINUSERNAME
+  ME_CONFIG_MONGODB_ADMINPASSWORD
+No UI authentication credentials were configured
+Basic Auth was not explicitly disabled
+As a result, mongo-express rejected all requests with 401 Unauthorized
+
+🛠️ Troubleshooting Steps Taken ----------------------------
+1️⃣ Verified Pod and Service Health
+  kubectl get pods
+  kubectl get svc mongo-express-service
+  Pod was running
+  Service existed and correctly mapped
+
+2️⃣ Identified macOS + Minikube NodePort Behavior
+  Observed that Minikube exposed the service on:
+  http://127.0.0.1:<random-port>
+  Confirmed this was expected due to Docker/OrbStack driver
+
+3️⃣ Eliminated Networking as Root Cause
+  Used port forwarding to bypass Service and NodePort:
+  kubectl port-forward svc/mongo-express-service 8081:8081
+  Issue still persisted → confirmed not a Kubernetes networking problem
+
+4️⃣ Inspected Application Configuration
+  kubectl describe pod <mongo-express-pod-name>
+  Verified environment variables
+  Found only MongoDB credentials configured
+  No ME_CONFIG_BASICAUTH settings present
+
+5️⃣ Applied Fix (Disable UI Authentication)
+  Edited deployment:
+  kubectl edit deployment mongo-express
+  Added:
+    - name: ME_CONFIG_BASICAUTH
+      value: "false"
+
+6️⃣ Restarted Application Pods
+  kubectl rollout restart deployment mongo-express
+
+7️⃣ Re-tested Access
+  kubectl port-forward svc/mongo-express-service 8081:8081
+  Accessed:
+    http://localhost:8081
+    mongo-express UI loaded successfully without Unauthorized
+
+✅ Final Resolution ----------------------
+  The issue was caused by default Basic Authentication enabled in mongo-express
+  Explicitly disabling Basic Auth and restarting the pod resolved the issue
+  Kubernetes networking and service exposure were functioning correctly
     
+
 
     
