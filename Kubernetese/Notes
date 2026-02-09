@@ -109,6 +109,7 @@ Kubectl Commands ----
     kubens: to get the list of availabe namespaces
     kubens <namespaceName>: To change The namespace
     kubectl get ns: lists all namespaces currently created in the cluster.
+    kubectl get all -n kubernetes-dashboard: get all the resources under kubernetes-dashboard
     
     
 
@@ -152,6 +153,43 @@ Kubectl Commands ----
     kubectl get deployment -A | grep ingress: give all the pods filter by ingress
     minikube addons list: get the list of all addons
     minikube addons enable <addon> : To enable the addons
+    kubectl get ingress -n kubernetes-dashboard: 
+    kubectl get ingress -n kubernetes-dashboard --watch: get into live mode
+    kubectl describe ingress dashboard-ingress -n kubernetes-dashboard: you are asking Kubernetes for a detailed 
+                                                                        "status report" of your Ingress resource
+
+    sudo vim /etc/hosts: opening your Mac's Local DNS Resolver file with administrative privileges.
+      "By editing this file, you tell your Mac: "Before you go to the internet, check this list first. 
+      If you see 'dashboard.com', send the traffic to my Minikube IP instead."
+
+    🧲 Real-time Scenario ------ 
+        1️⃣ Issue
+        Kubernetes Dashboard not accessible via Ingress and custom domain on Minikube.
+        
+        2️⃣ Symptoms
+        dashboard.com opens blank page or fails to load
+        Dashboard not visible despite Ingress controller and DNS mapping
+        Service remains inaccessible externally
+        
+        3️⃣ Root Cause
+        Kubernetes Dashboard is not exposed via Ingress by default. On Minikube, Ingress has no real external IP and the dashboard requires authenticated, secure access.
+        
+        4️⃣ Troubleshooting
+        Verified Ingress controller was running
+        Confirmed DNS resolution was correct
+        Checked dashboard service type (ClusterIP)
+        Identified absence of Ingress resource for dashboard
+        Observed authentication requirement for dashboard access
+        
+        5️⃣ Resolution
+        Used minikube dashboard, which:
+        Starts a local secure proxy on the host machine
+        Forwards traffic directly to the dashboard’s ClusterIP service
+        Uses current kubeconfig for authentication
+        Manages TLS internally
+        Opens the dashboard in the browser without external exposure  
+
+
 
   🧲 Real-time Scenario ------ 
       1. Issue
