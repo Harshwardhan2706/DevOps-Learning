@@ -40,6 +40,8 @@ Install Minicube/Kubernetes ----
     Minikube (the cluster manager)
     Kubectl (the remote control)
 
+    orb start: to start the orbstack engine
+
     brew install minicube kubectl: it will install minicube on system
     brew install --cask orbstack: installs OrbStack, which is a fast, light, and modern replacement for Docker Desktop.
       What does it actually install?
@@ -56,6 +58,7 @@ Install Minicube/Kubernetes ----
 Work on Minicube ----
     kubectl get nodes: current state and metadata of all registered Node objects in the cluster.
     minikube status: to check minikube running status.
+    minikube start: to start minikube cluster manager.
 
 Kubectl Commands ----
     kubectl get pods: check the pods inside the node
@@ -90,6 +93,7 @@ Kubectl Commands ----
     exit: to exit from terminal.
     kubectl delete deployment mongo-depl: delete the deployment.
     kubectl apply -f config-file.yaml: It will apply the changes to configuration file.
+
     kubectl get namespaces: get the existing namespaces
       Namespace	                       Purpose
       default	              Where resources go if no namespace is specified
@@ -97,6 +101,17 @@ Kubectl Commands ----
       kube-public	          Publicly readable data
       kube-node-lease	      Node heartbeat information
     kubectl create namespace dev: create namespace for dev environment
+    kubectl api-resources --namespaced=false: When you run you are listing Cluster-scoped resources only.
+    kubectl api-resources --namespaced=false: When you run you are listing resources bound to namespace.
+    kubectl get configmap -n <namespace>: To get the configmap created inside certain namespace.
+    kubectl apply -f <configMapFile> --namespace=my-namespace: It will create configMap in my-namespace.
+    Changing Active Namespace: Kubectx needs to be installed: <brew install kubectx>
+    kubens: to get the list of availabe namespaces
+    kubens <namespaceName>: To change The namespace
+    kubectl get ns: lists all namespaces currently created in the cluster.
+    
+    
+
     kubectl describe service nginx-service: get the deatils of the service
     kubectl get pod -o wide: is the "expert view" for inspecting pods.
     kubectl get deployment nginx-deployment -o yaml
@@ -115,6 +130,47 @@ Kubectl Commands ----
     kubectl port-forward svc/mongo-express-service 8081:8081\n: a networking tunnel that creates a direct link between your local machine (MacBook) and a Service inside your Kubernetes cluster.
                                                                 Technically, it allows you to access a private cluster resource without setting up a complex LoadBalancer or Ingress.
     kubectl rollout restart deployment mongo-express: the "cleanest" way to reboot your application without changing your configuration or deleting the resource entirely.
+
+🔴 Ingress ====================================================================================
+  🚩“Ingress does not replace Kubernetes Services. It operates at the HTTP layer and routes external traffic to Services, 
+    which in turn load-balance traffic to Pods. Ingress often replaces the need for multiple NodePort or LoadBalancer services, 
+    but Services are still mandatory.”
+
+  🚩 An Ingress Controller is a Kubernetes component that actually implements Ingress rules by running 
+     a reverse proxy / load balancer (like NGINX, HAProxy, Envoy).
+      Ingress = rules
+      Ingress Controller = engine that enforces those rules
+      🔧 What the Ingress Controller Actually Does --
+          Terminates TLS (HTTPS)
+          Path-based routing (/api, /app)
+          Host-based routing (app.example.com)
+          Load balancing
+          Health checks
+          Rewrites, redirects, rate limits (controller-specific)
+
+    minikube addons enable ingress: to enable ingress controller in cluster.
+    kubectl get deployment -A | grep ingress: give all the pods filter by ingress
+    minikube addons list: get the list of all addons
+    minikube addons enable <addon> : To enable the addons
+
+  🧲 Real-time Scenario ------ 
+      1. Issue
+        Ingress controller pod not visible in kube-system namespace after installation.
+
+      2. Symptoms
+        kubectl get pods -n kube-system did not show ingress controller pod
+        kubectl get pods -A | grep ingress showed ingress controller running
+
+      3. Root Cause
+        Ingress controller is not a core Kubernetes component and was installed by Minikube in the ingress-nginx namespace, not kube-system.
+
+      4. Troubleshooting Steps
+        Listed pods across all namespaces using <kubectl get pods -A>
+        Identified ingress controller running in ingress-nginx namespace
+        Verified by running <kubectl get pods -n ingress-nginx>
+
+      5. Resolution
+        Confirmed ingress controller was correctly deployed in ingress-nginx; no action required.
 
 🔴 Real-time Scenario =========================================================================
 🐞 Issue ----------------------------
