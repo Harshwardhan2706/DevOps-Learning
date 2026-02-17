@@ -211,79 +211,192 @@
         Confirmed ingress controller was correctly deployed in ingress-nginx; no action required.
 
 🔴 Real-time Scenario =========================================================================
-🐞 Issue ----------------------------
-mongo-express UI returns “Unauthorized” after exposing service via Minikube.
-
-📌 Symptoms --
-mongo-express pod was in Running state
-Service was created as NodePort
-Running:
-  <minikube service mongo-express-service>
-opened:
-  <http://127.0.0.1:<random-port>>
-Browser consistently returned:
-  "Unauthorized"
-
-🔍 Root Cause ----------------------
-When using Minikube with Docker/OrbStack driver on macOS, NodePort services are exposed via a local tunnel, which maps the service to a random localhost port.
-The redirection from NodePort → 127.0.0.1:<random-port> was expected behavior, not an error.
-The actual issue was application-level:
-mongo-express enables Basic Authentication by default
-Only MongoDB connection credentials were configured using:
-  ME_CONFIG_MONGODB_ADMINUSERNAME
-  ME_CONFIG_MONGODB_ADMINPASSWORD
-No UI authentication credentials were configured
-Basic Auth was not explicitly disabled
-As a result, mongo-express rejected all requests with 401 Unauthorized
-
-🛠️ Troubleshooting Steps Taken ----------------------------
-1️⃣ Verified Pod and Service Health
-  kubectl get pods
-  kubectl get svc mongo-express-service
-  Pod was running
-  Service existed and correctly mapped
-
-2️⃣ Identified macOS + Minikube NodePort Behavior
-  Observed that Minikube exposed the service on:
-  http://127.0.0.1:<random-port>
-  Confirmed this was expected due to Docker/OrbStack driver
-
-3️⃣ Eliminated Networking as Root Cause
-  Used port forwarding to bypass Service and NodePort:
-  kubectl port-forward svc/mongo-express-service 8081:8081
-  Issue still persisted → confirmed not a Kubernetes networking problem
-
-4️⃣ Inspected Application Configuration
-  kubectl describe pod <mongo-express-pod-name>
-  Verified environment variables
-  Found only MongoDB credentials configured
-  No ME_CONFIG_BASICAUTH settings present
-
-5️⃣ Applied Fix (Disable UI Authentication)
-  Edited deployment:
-  kubectl edit deployment mongo-express
-  Added:
-    - name: ME_CONFIG_BASICAUTH
-      value: "false"
-
-6️⃣ Restarted Application Pods
-  kubectl rollout restart deployment mongo-express
-
-7️⃣ Re-tested Access
-  kubectl port-forward svc/mongo-express-service 8081:8081
-  Accessed:
-    http://localhost:8081
-    mongo-express UI loaded successfully without Unauthorized
-
-✅ Final Resolution ----------------------
-  The issue was caused by default Basic Authentication enabled in mongo-express
-  Explicitly disabling Basic Auth and restarting the pod resolved the issue
-  Kubernetes networking and service exposure were functioning correctly
+  🐞 Issue ----------------------------
+    mongo-express UI returns “Unauthorized” after exposing service via Minikube.
+  
+  📌 Symptoms --
+    mongo-express pod was in Running state
+    Service was created as NodePort
+    Running:
+      <minikube service mongo-express-service>
+    opened:
+      <http://127.0.0.1:<random-port>>
+    Browser consistently returned:
+      "Unauthorized"
+  
+  🔍 Root Cause ----------------------
+    When using Minikube with Docker/OrbStack driver on macOS, NodePort services are exposed via a local tunnel, which maps the service to a random localhost port.
+    The redirection from NodePort → 127.0.0.1:<random-port> was expected behavior, not an error.
+    The actual issue was application-level:
+    mongo-express enables Basic Authentication by default
+    Only MongoDB connection credentials were configured using:
+      ME_CONFIG_MONGODB_ADMINUSERNAME
+      ME_CONFIG_MONGODB_ADMINPASSWORD
+    No UI authentication credentials were configured
+    Basic Auth was not explicitly disabled
+    As a result, mongo-express rejected all requests with 401 Unauthorized
+  
+  🛠️ Troubleshooting Steps Taken ----------------------------
+    1️⃣ Verified Pod and Service Health
+      kubectl get pods
+      kubectl get svc mongo-express-service
+      Pod was running
+      Service existed and correctly mapped
+    
+    2️⃣ Identified macOS + Minikube NodePort Behavior
+      Observed that Minikube exposed the service on:
+      http://127.0.0.1:<random-port>
+      Confirmed this was expected due to Docker/OrbStack driver
+    
+    3️⃣ Eliminated Networking as Root Cause
+      Used port forwarding to bypass Service and NodePort:
+      kubectl port-forward svc/mongo-express-service 8081:8081
+      Issue still persisted → confirmed not a Kubernetes networking problem
+    
+    4️⃣ Inspected Application Configuration
+      kubectl describe pod <mongo-express-pod-name>
+      Verified environment variables
+      Found only MongoDB credentials configured
+      No ME_CONFIG_BASICAUTH settings present
+    
+    5️⃣ Applied Fix (Disable UI Authentication)
+      Edited deployment:
+      kubectl edit deployment mongo-express
+      Added:
+        - name: ME_CONFIG_BASICAUTH
+          value: "false"
+    
+    6️⃣ Restarted Application Pods
+      kubectl rollout restart deployment mongo-express
+    
+    7️⃣ Re-tested Access
+      kubectl port-forward svc/mongo-express-service 8081:8081
+      Accessed:
+        http://localhost:8081
+        mongo-express UI loaded successfully without Unauthorized
+  
+    ✅ Final Resolution ----------------------
+      The issue was caused by default Basic Authentication enabled in mongo-express
+      Explicitly disabling Basic Auth and restarting the pod resolved the issue
+      Kubernetes networking and service exposure were functioning correctly
 
 
 🔴 Helm ====================================================
+  Helm is the package manager for Kubernetes.
+  Helm helps you define, install, upgrade, and manage Kubernetes applications using reusable templates called Charts.
 
+  🚩 Core Helm Concepts ------
+    1️⃣ Chart
+      A Helm Chart is a packaged Kubernetes application.
+      A chart contains:
+        mychart/
+          Chart.yaml        # Metadata
+          values.yaml       # Default values
+          templates/        # Kubernetes YAML templates
+          charts/           # Dependencies
+            
+    2️⃣ Release
+      When you install a chart in a cluster:
+        <<< helm install my-app ./mychart >>>
+
+      You create a Release.
+        A release = running instance of a chart
+        One chart → multiple releases possible
+        Each release has revision history
+
+    3️⃣ Values.yaml
+      This file contains configurable parameters.
+      Example:
+        replicaCount: 2
+        image:
+          repository: nginx
+          tag: latest
+        
+      You override values:
+        <<< helm install my-app ./mychart -f prod-values.yaml >>>
+
+    4️⃣ Templates
+      Helm uses Go templating engine.
+      Example inside deployment.yaml:
+        <<< replicas: {{ .Values.replicaCount }} >>>
+
+      Helm dynamically replaces values during install.
+
+    5️⃣ Repository
+      A place where charts are stored.
+      Example:
+        helm repo add bitnami https://charts.bitnami.com/bitnami
     
+      Popular repositories:
+        Bitnami
+        ArtifactHub
 
-
+  🚩 Helm Workflow (Step-by-Step) --------
+    1. Add repository
+    <<< helm repo add bitnami https://charts.bitnami.com/bitnami >>>
     
+    2. Search chart
+    <<< helm search repo nginx >>>
+    
+    3. Install chart
+    <<< helm install my-nginx bitnami/nginx >>>
+    
+    4. List releases
+    <<< helm list >>>
+    
+    5. Upgrade
+    <<< helm upgrade my-nginx bitnami/nginx >>>
+    
+    6. Rollback
+    <<< helm rollback my-nginx 1 >>>
+    
+    7. Uninstall
+    <<< helm uninstall my-nginx >>>
+
+
+  🚩 Helm v2 vs Helm v3
+      Feature	                  Helm v2	              Helm v3
+      Tiller (server component)	Required	            ❌ Removed
+      Security	                RBAC issues	          More secure
+      Release storage	          ConfigMaps	          Secrets
+      Architecture	            Client-Server	        Client-only
+
+  🚀 Helm in Real DevOps / SRE World
+    Since you're preparing for DevOps/SRE roles, this is how Helm is used in production:
+
+    🔹 With CI/CD
+      Build image
+      Update image tag in values.yaml
+      helm upgrade --install
+      Automated rollout
+    
+    🔹 With GitOps (ArgoCD / Flux)
+      Charts stored in Git
+      ArgoCD syncs automatically
+    
+    🔹 Blue-Green / Canary
+      Use different releases
+      Adjust replica weights
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
