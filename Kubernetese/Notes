@@ -2,7 +2,7 @@
 
 [Uploading Gemini_Generated_Image_2esyhs2esyhs2esy.png…]()
 
-Installing Homebrew on the MaC ---
+🔴 Installing Homebrew on the MaC ---
 
   harshwardhan_baghel@Harshwardhans-MacBook-Air ~ % history
     1  brew update
@@ -15,7 +15,7 @@ Installing Homebrew on the MaC ---
     8  brew help
     9  brew --version
 
-Important Brew commands ----
+🔴 Important Brew commands ----
 
     brew search [package]: Search for a tool. (e.g., brew search python)
     brew install [package]: The heavy lifter. Downloads and installs the tool.
@@ -33,7 +33,7 @@ Important Brew commands ----
     brew install --cask vlc: Installs the VLC Media Player.
     brew install --cask visual-studio-code: Installs VS Code.
 
-Install Minicube/Kubernetes ----
+🔴 Install Minicube/Kubernetes ----
 
     Homebrew (the installer)
     OrbStack (the engine)
@@ -55,12 +55,12 @@ Install Minicube/Kubernetes ----
     docker ps: to see what's riunning on docker
     minikube start --driver=docker: telling Minikube to build a miniature using Docker, one-node data center inside your Mac.
 
-Work on Minicube ----
+🔴 Work on Minicube ----
     kubectl get nodes: current state and metadata of all registered Node objects in the cluster.
     minikube status: to check minikube running status.
     minikube start: to start minikube cluster manager.
 
-Kubectl Commands ----
+🔴 Kubectl Commands ----
     kubectl get pods: check the pods inside the node
     kubectl get services: check the services 
     kubectl create -h: It will give all available create commands
@@ -279,6 +279,10 @@ As a result, mongo-express rejected all requests with 401 Unauthorized
   The issue was caused by default Basic Authentication enabled in mongo-express
   Explicitly disabling Basic Auth and restarting the pod resolved the issue
   Kubernetes networking and service exposure were functioning correctly
+
+
+🔴 Helm ====================================================
+
     
 
 
