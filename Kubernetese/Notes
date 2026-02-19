@@ -408,12 +408,57 @@
   Cloud integration	  -    Yes	                                Manual
 
 
+🔴 Stateful vs Stateless Applications in Kubernetes =======================================
 
+  1️⃣ Stateless Applications --------
+  📌 Definition
+    A stateless application does NOT store client/session data locally.
+    Each request is independent.
+    
+    If the pod dies → nothing is lost.
 
+  🧠 Characteristics
+    No local storage dependency
+    Easily scalable (horizontal scaling)
+    Any replica can handle any request
+    No fixed identity
+    No need for Persistent Volumes
 
+  💡 Examples
+    Nginx (web server)
+    Apache HTTP Server
+    Frontend React apps
+    API gateways
+    Microservices
 
+  📦 Kubernetes Deployment Used
+    Stateless apps typically use:
+    kind: Deployment
 
+  2️⃣ Stateful Applications --------
+  📌 Definition
+    A stateful application stores data locally or maintains session/state information.
 
+    If the pod dies → data must NOT be lost.
+
+  🧠 Characteristics
+    Requires persistent storage
+    Each pod has unique identity
+    Ordered startup & shutdown
+    Stable network identity
+    Uses Persistent Volume
+
+  💡 Examples
+    MySQL
+    PostgreSQL
+    MongoDB
+    Redis
+    Kafka
+    Elasticsearch
+
+  📦 Kubernetes Resource Used
+    Stateful apps use:
+    kind: StatefulSet
 
 
 
