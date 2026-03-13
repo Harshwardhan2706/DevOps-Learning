@@ -2,6 +2,102 @@
 
 [Uploading Gemini_Generated_Image_2esyhs2esyhs2esy.png…]()
 
+🔴 Kubernetes Architecture -----------------
+  Control Plane (Master Node) – manages the cluster
+  Worker Nodes – run the applications (containers)
+
+  1️⃣ Control Plane (Cluster Brain)
+    Definition:
+    The Control Plane manages the entire Kubernetes cluster and makes decisions like scheduling pods, scaling, and maintaining the desired state.
+
+    🚩Core Components
+      1. kube-apiserver
+        Entry point of the Kubernetes cluster
+        All kubectl commands, API calls, and UI requests go through it
+        Validates and processes REST requests
+  
+        Interview Insight
+        No component talks directly with others; everything communicates via API Server.
+
+      2. etcd
+        Distributed key-value store
+        Stores cluster state and configuration
+        
+        Examples stored:
+        Pods
+        Deployments
+        Secrets
+        ConfigMaps
+        Node info
+        
+        Important
+        If etcd is lost → cluster state lost
+
+      3. kube-scheduler
+        Decides which node a pod should run on
+        
+        Scheduling factors:
+        CPU / Memory availability
+        Node affinity
+        Taints & tolerations
+        Resource requests
+
+      4. kube-controller-manager
+        Runs controllers that maintain desired state.
+        
+        Examples:
+        Node Controller
+        Replication Controller
+        Endpoint Controller
+        Job Controller
+        
+        Example:
+        Desired: 3 pods
+        Running: 2 pods
+        Controller → creates 1 more pod
+
+  2️⃣ Worker Nodes (Where Applications Run)
+    Definition
+    Worker nodes are the machines that run the containerized workloads (pods).
+  
+      Each worker node contains:
+      1. kubelet
+      Agent running on each node.
+      Responsibilities:
+      Communicates with API Server
+      Ensures containers inside pods are running
+      Reports node status
+      
+      Example:
+      API Server → Run pod nginx
+      kubelet → pulls image and starts container
+      
+      2. Container Runtime
+      Software responsible for running containers.
+      
+      Examples:
+      containerd
+      CRI-O
+      Docker (older setups)
+      
+      Tasks:
+      Pull images
+      Run containers
+      Manage container lifecycle
+      
+      3. kube-proxy
+      Handles network communication inside cluster.
+      
+      Responsibilities:
+      Maintains iptables / IPVS rules
+      Enables Service networking
+      Load balances traffic between pods
+      
+      Example:
+      Service → nginx-service
+      Traffic → kube-proxy → one of the pods
+
+
 🔴 Installing Homebrew on the MaC ---
 
   harshwardhan_baghel@Harshwardhans-MacBook-Air ~ % history
