@@ -324,6 +324,128 @@
                                                                 Technically, it allows you to access a private cluster resource without setting up a complex LoadBalancer or Ingress.
     kubectl rollout restart deployment mongo-express: the "cleanest" way to reboot your application without changing your configuration or deleting the resource entirely.
 
+🔴 Pod Lifecycle -------------------------------
+  1️⃣ Definition
+    Pod Lifecycle refers to the different phases a Pod goes through from creation to termination.
+    It describes the state of a pod while Kubernetes manages it.
+
+  2️⃣ Pod Lifecycle Flow
+      Pod Created
+           ↓
+      Pending
+           ↓
+      Running
+           ↓
+      Succeeded / Failed
+           ↓
+      Terminated
+
+  3️⃣ Pod Phases
+    1️⃣ Pending
+      Meaning
+        Pod has been created but containers are not yet running.
+      Reasons:
+        Image pulling
+        Node scheduling
+        Resource allocation
+
+    2️⃣ Running
+      Meaning
+      Pod is successfully scheduled and at least one container is running.
+
+    3️⃣ Succeeded
+      Meaning
+      All containers in the pod completed successfully and exited.
+      Common with:
+        Jobs
+        Batch workloads
+
+    4️⃣ Failed
+      Meaning
+        At least one container terminated with an error.
+      Possible reasons:
+        Crash
+        Application failure
+        Resource issue
+
+    5️⃣ Unknown
+      Meaning
+        Kubernetes cannot determine pod state.
+      Reasons:
+        Node communication failure
+        Node crash
+    
+    4️⃣ Container States Inside Pod
+      Each container inside a pod has its own state.
+      
+      🔘Waiting
+        Container is waiting to start.
+      
+        Example reasons:
+          ImagePullBackOff
+          CrashLoopBackOff
+        
+      🔘Running
+        Container is actively executing.
+      
+      🔘Terminated
+        Container finished execution.
+      
+        Possible exit reasons:
+          Completed
+          Error
+          OOMKilled
+
+    5️⃣ Important Pod Conditions
+      Conditions describe pod health.
+      
+      Examples:
+        Condition	Meaning
+        PodScheduled	         Pod assigned to node
+        Initialized	           Init containers finished
+        ContainersReady	       Containers ready
+        Ready	                 Pod ready to serve traffic
+
+    6️⃣ Pod Deletion Lifecycle
+    
+      When a pod is deleted:
+        kubectl delete pod nginx
+      
+      Flow:
+      Running
+         ↓
+      Terminating
+         ↓
+      Container stopped
+         ↓
+      Pod removed
+      
+      Grace period default:
+      30 seconds
+      
+      Force delete:
+      kubectl delete pod nginx --force --grace-period=0
+
+    7️⃣ Restart Policies
+    
+      Pod restart behavior:
+        Policy	                   Meaning
+        Always	              Always restart container
+        OnFailure	            Restart only if failure
+        Never	                Do not restart
+
+    8️⃣ Real Production Example
+
+      Example issue:
+        Pod → CrashLoopBackOff
+      
+      Meaning:
+        Container keeps crashing
+        Kubernetes keeps restarting it
+      
+      Debug steps:
+        kubectl describe pod pod-name
+        kubectl logs pod-name
 
 🔴 Installing Homebrew on the MaC ------------------------
 
