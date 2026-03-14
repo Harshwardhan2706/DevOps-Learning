@@ -447,6 +447,191 @@
         kubectl describe pod pod-name
         kubectl logs pod-name
 
+🔴 Deployments ---------------------------------
+
+  1️⃣ Definition
+    A Deployment is a Kubernetes controller used to manage and maintain Pods and ReplicaSets for stateless applications.
+    It ensures the desired number of pod replicas are always running.
+
+  2️⃣ Key Concept
+    Deployment manages pods indirectly.
+      Deployment
+           ↓
+      ReplicaSet
+           ↓
+      Pods
+    
+    Deployment handles:
+      Scaling
+      Rolling updates
+      Rollbacks
+      Self-healing
+
+  3️⃣ Why Deployments Are Used
+  
+    Without deployment:
+      Pod crashes → Not automatically recreated
+  
+    With deployment:
+      Pod crashes → ReplicaSet creates new pod
+      Kubernetes ensures desired state = actual state.
+
+  4️⃣ Example Deployment YAML
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: nginx-deployment
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: nginx
+      template:
+        metadata:
+          labels:
+            app: nginx
+        spec:
+          containers:
+          - name: nginx
+            image: nginx
+            ports:
+            - containerPort: 80
+  
+    Create deployment:
+      kubectl apply -f deployment.yaml
+
+  5️⃣ Key Features of Deployments
+    Scaling - Increase or decrease pods.
+    Rolling Updates - Update application without downtime.
+    Rollback - Revert to previous version if update fails.
+    Self Healing - Pod deleted/crashed
+                      ↓
+                  ReplicaSet creates new pod
+
+  6️⃣ Real Production Example
+
+    Example microservice deployment:
+      payment-service
+      replicas: 4
+    
+    Architecture:
+      Deployment
+         ↓
+      ReplicaSet
+         ↓
+      Pod1
+      Pod2
+      Pod3
+      Pod4
+
+    If Pod2 crashes, Kubernetes creates Pod5 automatically.
+
+🔴 ReplicaSet -----------------------------------
+
+  1️⃣ Definition
+    A ReplicaSet is a Kubernetes controller that ensures a specified number of identical Pods are always running in the cluster.
+  
+  2️⃣ Key Concept
+    ReplicaSet maintains the desired number of pod replicas.
+
+  3️⃣ How ReplicaSet Works
+    ReplicaSet uses Labels & Selectors to identify which pods it manages.
+
+    Example:
+      selector:
+        matchLabels:
+          app: nginx
+
+    ReplicaSet controls all pods with label app=nginx.
+
+  4️⃣ ReplicaSet Example YAML
+    apiVersion: apps/v1
+    kind: ReplicaSet
+    metadata:
+      name: nginx-rs
+    spec:
+      replicas: 3
+      selector:
+        matchLabels:
+          app: nginx
+      template:
+        metadata:
+          labels:
+            app: nginx
+        spec:
+          containers:
+          - name: nginx
+            image: nginx
+
+    Create ReplicaSet:
+      kubectl apply -f replicaset.yaml
+
+  5️⃣ Useful Commands
+    kubectl get rs - 
+    kubectl describe rs nginx-rs
+    kubectl delete rs nginx-rs
+
+🔴 DaemonSet ------------------------------
+
+  1️⃣ Definition
+    A DaemonSet is a Kubernetes controller that ensures a specific Pod runs on every node (or selected nodes) in the cluster.
+  
+  2️⃣ Key Concept
+    Normal workloads:
+      Deployment → runs some pods
+      ReplicaSet → maintains pod count
+  
+    DaemonSet behavior:
+      Each Node → 1 Pod
+    
+    Example:
+      Node1 → Pod
+      Node2 → Pod
+      Node3 → Pod
+  
+    If a new node joins, DaemonSet automatically creates a pod on that node.
+
+3️⃣ Why DaemonSets Are Used
+  DaemonSets run node-level services that must exist on every node.
+
+  Examples:
+    Log collection
+    Monitoring agents
+    Networking plugins
+    Security agents
+
+  5️⃣ DaemonSet Example
+    apiVersion: apps/v1
+    kind: DaemonSet
+    metadata:
+      name: fluentd-agent
+    spec:
+      selector:
+        matchLabels:
+          app: fluentd
+      template:
+        metadata:
+          labels:
+            app: fluentd
+        spec:
+          containers:
+          - name: fluentd
+            image: fluentd
+
+    kubectl apply -f daemonset.yaml
+
+  7️⃣ Useful Commands
+  
+    Get DaemonSets:
+      kubectl get daemonsets
+    
+    Get pods:
+      kubectl get pods
+    
+    Describe DaemonSet:
+      kubectl describe daemonset fluentd-agent
+
+
 🔴 Installing Homebrew on the MaC ------------------------
 
   harshwardhan_baghel@Harshwardhans-MacBook-Air ~ % history
