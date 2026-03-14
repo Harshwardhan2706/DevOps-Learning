@@ -62,43 +62,270 @@
   
       Each worker node contains:
       1. kubelet
-      Agent running on each node.
-      Responsibilities:
-      Communicates with API Server
-      Ensures containers inside pods are running
-      Reports node status
-      
-      Example:
-      API Server → Run pod nginx
-      kubelet → pulls image and starts container
+        Agent running on each node.
+        Responsibilities:
+        Communicates with API Server
+        Ensures containers inside pods are running
+        Reports node status
+        
+        Example:
+        API Server → Run pod nginx
+        kubelet → pulls image and starts container
       
       2. Container Runtime
-      Software responsible for running containers.
-      
-      Examples:
-      containerd
-      CRI-O
-      Docker (older setups)
-      
-      Tasks:
-      Pull images
-      Run containers
-      Manage container lifecycle
+        Software responsible for running containers.
+        
+        Examples:
+        containerd
+        CRI-O
+        Docker (older setups)
+        
+        Tasks:
+        Pull images
+        Run containers
+        Manage container lifecycle
       
       3. kube-proxy
-      Handles network communication inside cluster.
+        Handles network communication inside cluster.
+        
+        Responsibilities:
+        Maintains iptables / IPVS rules
+        Enables Service networking
+        Load balances traffic between pods
+        
+        Example:
+        Service → nginx-service
+        Traffic → kube-proxy → one of the pods
+
+    3️⃣ How Everything Works Together
+      Pod Creation Flow
       
-      Responsibilities:
-      Maintains iptables / IPVS rules
-      Enables Service networking
-      Load balances traffic between pods
+      1️⃣ User runs
+        kubectl apply -f deployment.yaml
+      2️⃣ Request goes to API Server
+      3️⃣ API Server stores state in etcd
+      4️⃣ Scheduler selects best node
+      5️⃣ kubelet on that node receives instruction
+      6️⃣ Container Runtime pulls image and runs container
+      7️⃣ kube-proxy enables networking
+
+🔴 Pods & Containers ----------------------------------
+  1️⃣ Container
+    Definition:
+      A container is a lightweight, portable unit that packages an application with its dependencies and runtime.
+    
+    Key Concept:
+      Runs using a container runtime (containerd, CRI-O)
+      Created from container images (like Docker images)
       
+    Important Points:
+      Isolated process
+      Has its own filesystem
+      Starts quickly
+      Ephemeral by nature
+    
+    Example"
+      docker run nginx
+
+    Interview Insight:
+      Kubernetes does not manage containers directly. It manages them through Pods.
+
+  2️⃣ Pod
+    Definition:
+      A Pod is the smallest deployable unit in Kubernetes that contains one or more containers.
+      
+    Key Concept:
+      Containers inside a pod share resources.
+    
+    Shared resources:
+      Network (same IP)
+      Storage volumes
+      Pod lifecycle
+
+    Important Characteristics:
+      One IP per Pod
+      Usually One Container per Pod
+      Pods are Ephemeral
+      Pods are Managed by Controllers
+
+🔴 Namespaces -----------------------------------
+  1️⃣ Definition
+    A Namespace is a logical partition inside a Kubernetes cluster used to organize and isolate resources.
+    It allows multiple teams/applications to share the same cluster safely.
+  
+  2️⃣ Key Concept
+    Namespaces provide resource separation within a cluster.
+  
+  Example:
+    Cluster
+       ├── Namespace: dev
+       ├── Namespace: staging
+       └── Namespace: production
+    Each namespace can have its own pods, services, deployments, etc.
+  
+  3️⃣ Default Namespaces in Kubernetes
+    Namespace	Purpose
+    default	Used if no namespace specified
+    kube-system	System components (DNS, scheduler, controller)
+    kube-public	Publicly accessible resources
+    kube-node-lease	Node heartbeat information
+
+  4️⃣ Resource Isolation (Important)
+    Namespaces help apply:
+      Resource Quotas
+      Network Policies
+      RBAC access control
+    
+    Example:
+      dev namespace
+      CPU limit = 4 cores
+      Memory = 8GB
+
+  5️⃣ Important Commands
+    kubectl get namespaces: get the existing namespaces
+      Namespace	                       Purpose
+      default	              Where resources go if no namespace is specified
+      kube-system	          Kubernetes system components
+      kube-public	          Publicly readable data
+      kube-node-lease	      Node heartbeat information
+    kubectl create namespace dev: create namespace for dev environment
+    kubectl api-resources --namespaced=false: When you run you are listing Cluster-scoped resources only.
+    kubectl api-resources --namespaced=false: When you run you are listing resources bound to namespace.
+    kubectl get configmap -n <namespace>: To get the configmap created inside certain namespace.
+    kubectl apply -f <configMapFile> --namespace=my-namespace: It will create configMap in my-namespace.
+    Changing Active Namespace: Kubectx needs to be installed: <brew install kubectx>
+    kubens: to get the list of availabe namespaces
+    kubens <namespaceName>: To change The namespace
+    kubectl get ns: lists all namespaces currently created in the cluster.
+
+🔴 Labels & Selectors --------------------------------
+  1️⃣ Labels
+    Definition
+    A Label is a key–value pair attached to Kubernetes objects (Pods, Services, Deployments, etc.) used for identification and grouping.
+  
+    Key Concept
+      Labels help Kubernetes organize and select resources.
+  
+    Example:
+      labels:
+        app: nginx
+        env: production
+        tier: frontend
+
+    Important Points about Labels:
+      Attached to objects like:
+        Pods
+        Services
+        Deployments
+        Nodes
+
+      Used for:
+        Grouping
+        Selection
+        Filtering resources
+
       Example:
-      Service → nginx-service
-      Traffic → kube-proxy → one of the pods
+      kubectl get pods --show-labels
+
+  2️⃣ Selectors
+    Definition
+      A Selector is used to identify and select objects based on labels.
+      Controllers and Services use selectors to find the correct pods.
+    
+    Example:
+      selector:
+        app: nginx
+
+    Where Selectors Are Used
+      Selectors are used by:
+        Services → find pods to send traffic
+        ReplicaSets → manage pods
+        Deployments → manage replicas
+        NetworkPolicies
+        kubectl filtering
+        This selects all pods with label app=nginx.
+
+  3️⃣ How Labels & Selectors Work Together
+    Example:
+    Pods:
+      Pod1 → app=nginx
+      Pod2 → app=nginx
+      Pod3 → app=redis
+    
+    Service selector:
+      selector:
+        app: nginx
+    
+    Result:
+      Service → Pod1
+      Service → Pod2
+      Pod3 is ignored.
+
+🔴 kubectl Basics (Kubernetes CLI) ------------------------
+  1️⃣ Definition
+    kubectl is the command-line tool used to interact with a Kubernetes cluster.
+    It communicates with the API Server to create, update, delete, and view cluster resources.
+
+  2️⃣ Kubectl Commands ----
+    kubectl get pods: check the pods inside the node
+    kubectl get services: check the services 
+    kubectl create -h: It will give all available create commands
+      clusterrole           Create a cluster role
+      clusterrolebinding    Create a cluster role binding for a particular cluster role
+      configmap             Create a config map from a local file, directory or literal value
+      cronjob               Create a cron job with the specified name
+      deployment            Create a deployment with the specified name
+      ingress               Create an ingress with the specified name
+      job                   Create a job with the specified name
+      namespace             Create a namespace with the specified name
+      poddisruptionbudget   Create a pod disruption budget with the specified name
+      priorityclass         Create a priority class with the specified name
+      quota                 Create a quota with the specified name
+      role                  Create a role with single rule
+      rolebinding           Create a role binding for a particular role or cluster role
+      secret                Create a secret using a specified subcommand
+      service               Create a service using a specified subcommand
+      serviceaccount        Create a service account with the specified name
+      token                 Request a service account token
+    kubectl create deployment NAME --image=image: to create deplyment using certain docker image [nginx-depl --image=nginx].
+    kubectl get deployment: check the deployment
+    ImagePullBackOff:  is the system's way of saying: "I tried to download the software for your Pod, but I failed, and I’m tired of trying for a moment."
+    minikube start/stop: to start and stop the minikube.
+    kubectl get replicaset: 
+    kubectl edit deployment nginx-depl: let us edit the deployment
+    kubectl logs podName: get the logs of pod to debug
+    kubectl describe podName: get the deatiled execution flow and status
+    kubectl exec -it PodName -- bin/bash: It allows you to open an interactive terminal session inside the running Pod.
+    exit: to exit from terminal.
+    kubectl delete deployment mongo-depl: delete the deployment.
+    kubectl apply -f config-file.yaml: It will apply the changes to configuration file.
+
+    
+    kubectl get all -n kubernetes-dashboard: get all the resources under kubernetes-dashboard
+    
+    
+
+    kubectl describe service nginx-service: get the deatils of the service
+    kubectl get pod -o wide: is the "expert view" for inspecting pods.
+    kubectl get deployment nginx-deployment -o yaml
+    kubectl get deployment nginx-deployment -o yaml: retrieve the full, "source of truth" document from the etcd database and display it in its raw YAML data structure.
+    kubectl get deployment nginx-deployment -o yaml > nginx-deployment-result.yaml: you are instructing your shell to take the Standard Output (stdout) of the kubectl query—which 
+                                                                                    contains the full internal representation of your deployment in the cluster—and redirect it 
+                                                                                    into a new physical file on your Mac named nginx-deployment-result.yaml.
+    head -n 20 nginx-deployment-result.yaml: To verify the file was created and see the first few lines.
+    kubectl delete -f <deployment/service config.file>: to delete those files.
+    kubectl get all: to get the all component inside cluster/minikube
+    echo -n 'username' | base64: binary-to-text encoding (-n: This flag tells echo not to append a trailing newline (\n))
+    kubectl get all | grep mongob: get all mongodb ones
+    minikube service mongo-express-service: this will assign an external IpAddress.
+    kubectl logs -l app=mongodb: selects the pod by its label and show the logs.
+    kubectl get svc mongo-express-service: an inspection command used to view the networking details of a specific Service.
+    kubectl port-forward svc/mongo-express-service 8081:8081\n: a networking tunnel that creates a direct link between your local machine (MacBook) and a Service inside your Kubernetes cluster.
+                                                                Technically, it allows you to access a private cluster resource without setting up a complex LoadBalancer or Ingress.
+    kubectl rollout restart deployment mongo-express: the "cleanest" way to reboot your application without changing your configuration or deleting the resource entirely.
 
 
-🔴 Installing Homebrew on the MaC ---
+🔴 Installing Homebrew on the MaC ------------------------
 
   harshwardhan_baghel@Harshwardhans-MacBook-Air ~ % history
     1  brew update
@@ -156,78 +383,7 @@
     minikube status: to check minikube running status.
     minikube start: to start minikube cluster manager.
 
-🔴 Kubectl Commands ----
-    kubectl get pods: check the pods inside the node
-    kubectl get services: check the services 
-    kubectl create -h: It will give all available create commands
-      clusterrole           Create a cluster role
-      clusterrolebinding    Create a cluster role binding for a particular cluster role
-      configmap             Create a config map from a local file, directory or literal value
-      cronjob               Create a cron job with the specified name
-      deployment            Create a deployment with the specified name
-      ingress               Create an ingress with the specified name
-      job                   Create a job with the specified name
-      namespace             Create a namespace with the specified name
-      poddisruptionbudget   Create a pod disruption budget with the specified name
-      priorityclass         Create a priority class with the specified name
-      quota                 Create a quota with the specified name
-      role                  Create a role with single rule
-      rolebinding           Create a role binding for a particular role or cluster role
-      secret                Create a secret using a specified subcommand
-      service               Create a service using a specified subcommand
-      serviceaccount        Create a service account with the specified name
-      token                 Request a service account token
-    kubectl create deployment NAME --image=image: to create deplyment using certain docker image [nginx-depl --image=nginx].
-    kubectl get deployment: check the deployment
-    ImagePullBackOff:  is the system's way of saying: "I tried to download the software for your Pod, but I failed, and I’m tired of trying for a moment."
-    minikube start/stop: to start and stop the minikube.
-    kubectl get replicaset: 
-    kubectl edit deployment nginx-depl: let us edit the deployment
-    kubectl logs podName: get the logs of pod to debug
-    kubectl describe podName: get the deatiled execution flow and status
-    kubectl exec -it PodName -- bin/bash: It allows you to open an interactive terminal session inside the running Pod.
-    exit: to exit from terminal.
-    kubectl delete deployment mongo-depl: delete the deployment.
-    kubectl apply -f config-file.yaml: It will apply the changes to configuration file.
-
-    kubectl get namespaces: get the existing namespaces
-      Namespace	                       Purpose
-      default	              Where resources go if no namespace is specified
-      kube-system	          Kubernetes system components
-      kube-public	          Publicly readable data
-      kube-node-lease	      Node heartbeat information
-    kubectl create namespace dev: create namespace for dev environment
-    kubectl api-resources --namespaced=false: When you run you are listing Cluster-scoped resources only.
-    kubectl api-resources --namespaced=false: When you run you are listing resources bound to namespace.
-    kubectl get configmap -n <namespace>: To get the configmap created inside certain namespace.
-    kubectl apply -f <configMapFile> --namespace=my-namespace: It will create configMap in my-namespace.
-    Changing Active Namespace: Kubectx needs to be installed: <brew install kubectx>
-    kubens: to get the list of availabe namespaces
-    kubens <namespaceName>: To change The namespace
-    kubectl get ns: lists all namespaces currently created in the cluster.
-    kubectl get all -n kubernetes-dashboard: get all the resources under kubernetes-dashboard
-    
-    
-
-    kubectl describe service nginx-service: get the deatils of the service
-    kubectl get pod -o wide: is the "expert view" for inspecting pods.
-    kubectl get deployment nginx-deployment -o yaml
-    kubectl get deployment nginx-deployment -o yaml: retrieve the full, "source of truth" document from the etcd database and display it in its raw YAML data structure.
-    kubectl get deployment nginx-deployment -o yaml > nginx-deployment-result.yaml: you are instructing your shell to take the Standard Output (stdout) of the kubectl query—which 
-                                                                                    contains the full internal representation of your deployment in the cluster—and redirect it 
-                                                                                    into a new physical file on your Mac named nginx-deployment-result.yaml.
-    head -n 20 nginx-deployment-result.yaml: To verify the file was created and see the first few lines.
-    kubectl delete -f <deployment/service config.file>: to delete those files.
-    kubectl get all: to get the all component inside cluster/minikube
-    echo -n 'username' | base64: binary-to-text encoding (-n: This flag tells echo not to append a trailing newline (\n))
-    kubectl get all | grep mongob: get all mongodb ones
-    minikube service mongo-express-service: this will assign an external IpAddress.
-    kubectl logs -l app=mongodb: selects the pod by its label and show the logs.
-    kubectl get svc mongo-express-service: an inspection command used to view the networking details of a specific Service.
-    kubectl port-forward svc/mongo-express-service 8081:8081\n: a networking tunnel that creates a direct link between your local machine (MacBook) and a Service inside your Kubernetes cluster.
-                                                                Technically, it allows you to access a private cluster resource without setting up a complex LoadBalancer or Ingress.
-    kubectl rollout restart deployment mongo-express: the "cleanest" way to reboot your application without changing your configuration or deleting the resource entirely.
-
+🔴 
 🔴 Ingress ====================================================================================
   🚩“Ingress does not replace Kubernetes Services. It operates at the HTTP layer and routes external traffic to Services, 
     which in turn load-balance traffic to Pods. Ingress often replaces the need for multiple NodePort or LoadBalancer services, 
