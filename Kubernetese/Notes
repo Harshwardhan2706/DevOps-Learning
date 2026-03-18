@@ -631,6 +631,217 @@
     Describe DaemonSet:
       kubectl describe daemonset fluentd-agent
 
+🔴 Jobs And CronJobs --------------------------------
+
+  1️⃣ Jobs in Kubernetes
+    📌 Definition
+      A Job runs a task to completion by creating one or more pods.
+      Once the task finishes successfully → Job is complete.
+    
+    📌 Key Idea
+      👉 “Run this task and finish it — don’t keep it running.”
+    
+    📌 How it works
+      Job created
+         ↓
+      Pod starts
+         ↓
+      Task runs
+         ↓
+      Success → Job completes
+      Failure → Retry (based on config)
+
+    📌 Important Fields
+      Field	          Meaning
+      completions	    Total successful executions required
+      parallelism	    Pods running at same time
+      backoffLimit	  Retry attempts
+      restartPolicy	  Usually Never or OnFailure
+
+    📌 Real Use Cases (SRE/DevOps)
+      DB migration before deployment
+      One-time data processing
+      Backup scripts
+      ETL pipelines
+
+  2️⃣ CronJobs in Kubernetes
+    📌 Definition
+      A CronJob runs Jobs on a schedule, similar to Linux cron.
+    
+    📌 Key Idea
+      👉 “Run this job repeatedly at specific times.”
+    
+    📌 How it works
+      CronJob scheduled (e.g. every day 2 AM)
+              ↓
+      Creates Job
+              ↓
+      Job creates Pod
+              ↓
+      Task runs → completes
+
+    📌 Important Fields
+        Field	                           Meaning
+        schedule	                       Cron expression
+        concurrencyPolicy	               Allow / Forbid / Replace
+        successfulJobsHistoryLimit	     Keep success history
+        failedJobsHistoryLimit	         Keep failed jobs
+        startingDeadlineSeconds	         Timeout for missed jobs
+
+    📌 Concurrency Policy
+        Policy	              Behavior
+        Allow	Multiple        jobs can run
+        Forbid	              Skip if previous running
+        Replace	              Kill old, run new
+
+  3️⃣ Job vs CronJob (Important Interview)
+    Feature	            Job	                    CronJob
+    Execution	          One-time	              Scheduled
+    Trigger	            Manual	                Time-based
+    Lifecycle	          Ends after              completion	Repeats
+    Use case	          Migration, batch	      Backup, cleanup
+
+🔴 Rolling updates & rollbacks --------------------
+
+  1️⃣ Rolling Updates
+    📌 Definition
+      A rolling update gradually replaces old pods with new ones without downtime.
+      👉 Instead of killing all pods at once, Kubernetes updates step-by-step.
+  
+    📌 Why it matters
+      Zero downtime deployments
+      Safe releases
+      Controlled risk
+  
+    📌 How it works
+      Example:
+      Deployment: 4 replicas (v1)
+      
+      Update to v2:
+      Step 1 → 1 new pod (v2) created
+      Step 2 → 1 old pod (v1) terminated
+      Step 3 → repeat
+      
+      Final:
+      All pods → v2
+  
+    📌 Key Strategy Fields
+      strategy:
+        type: RollingUpdate
+        rollingUpdate:
+          maxUnavailable: 1
+          maxSurge: 1
+      🔹 maxUnavailable
+        Max pods that can be down
+        Example: 1 → at least 3 pods always running (if replicas=4)
+    
+      🔹 maxSurge
+        Extra pods allowed above desired count
+        Example: 1 → total pods can go to 5 temporarily
+
+    📌 Real Production Insight
+      If readiness probes fail → rollout pauses
+      If pods crash → rollout stops automatically
+      👉 This is how Kubernetes prevents bad releases.
+
+  2️⃣ Rollbacks
+    📌 Definition
+      A rollback reverts your application to a previous stable version.
+    
+    📌 Why needed
+      Buggy deployment
+      Performance degradation
+      Production outage
+    
+    📌 How it works
+      v1 → v2 (deploy)
+              ↓
+      Issue detected ❌
+              ↓
+      Rollback
+              ↓
+      v1 restored ✅
+    
+    📌 Kubernetes Mechanism
+      Kubernetes stores ReplicaSet history:
+      Deployment
+         ├── ReplicaSet (v1)
+         ├── ReplicaSet (v2)
+      Rollback just switches traffic back to old ReplicaSet.
+    
+    📌 Commands (Very Important)
+      Check rollout status
+      kubectl rollout status deployment app-deployment
+      View history
+      kubectl rollout history deployment app-deployment
+      Rollback
+      kubectl rollout undo deployment app-deployment
+      Rollback to specific version
+      kubectl rollout undo deployment app-deployment --to-revision=1
+    
+    📌 Example Scenario
+      Deploy v2
+      ↓
+      CPU spikes / errors
+      ↓
+      Rollback command
+      ↓
+      v1 restored instantly
+
+  4️⃣ Real SRE Scenarios
+    ✅ Safe Deployment Flow
+      CI/CD pipeline
+         ↓
+      Deploy (rolling update)
+         ↓
+      Monitor (Prometheus / logs)
+         ↓
+      If failure → rollback
+
+    ✅ Common Failure Case
+      New version fails readiness probe
+      Pods never become "Ready"
+      Deployment stuck
+    
+    👉 Fix:
+      Check logs
+      Rollback immediately
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
+
+🔴
 
 🔴 Installing Homebrew on the MaC ------------------------
 
