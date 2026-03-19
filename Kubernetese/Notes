@@ -720,7 +720,48 @@
   Cloud integration	  -    Yes	                                Manual
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
+1️⃣2️⃣ Troubleshooting & Debugging (Interview Killer Skill)
 
+🔴 Pod crash loops --------------
+  🔹 Symptom: Pod keeps restarting → status = CrashLoopBackOff
+  🔹 Possible causes: App crash, wrong config/env, missing dependency (DB/API), port conflict
+  🔹 Debug steps:
+    kubectl logs <pod> (check error)
+    kubectl describe pod <pod> (events, exit code)
+    kubectl get pods -o wide (node info)
+  🔹 Interview tip: Always check logs first → then events → then config
+
+🔴 Image pull issues ------------------
+  🔹 Symptom: Pod stuck in ImagePullBackOff / ErrImagePull
+  🔹 Possible causes: Wrong image name/tag, private repo auth issue, network/DNS issue
+  🔹 Debug steps:
+    kubectl describe pod <pod> (check pull error)
+    Verify image name/tag
+    Check imagePullSecrets / registry access
+  🔹 Interview tip: 90% cases = wrong image tag or missing credentials
+
+🔴 DNS failures -----------------
+  🔹 Symptom: Service not reachable via name (e.g., backend-service not resolving)
+  🔹 Possible causes: CoreDNS down, wrong service name/namespace, network/CNI issue
+  🔹 Debug steps:
+    kubectl exec -it <pod> -- nslookup <service>
+    kubectl get pods -n kube-system (check CoreDNS)
+    kubectl get svc,ep (verify service & endpoints)
+  🔹 Interview tip: Always check DNS → Service → Endpoints → Network in order
+
+🔴 Network issues ------------------
+  🔹 Symptom: Pods can’t communicate (timeout / connection refused)
+  🔹 Possible causes: CNI issue (Calico / Cilium), wrong Service/labels, NetworkPolicy blocking
+  🔹 Debug steps:
+    kubectl get pods -o wide (IP check)
+    kubectl get svc,ep (endpoints exist?)
+    kubectl exec -it <pod> -- curl <service>
+    Check NetworkPolicies
+  🔹 Interview tip: Always verify Pod → Service → Endpoints → NetworkPolicy → CNI
+
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+https://chatgpt.com/s/t_69bc1cf52be4819187e1e6e23b44c316
 
 
 
