@@ -761,6 +761,40 @@
 
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
+⭐ STAR Answer – EKS Debugging Scenario
+S – Situation
+
+🔹 While setting up a Kubernetes cluster on Amazon EKS, I faced issues accessing the cluster and worker nodes were not getting created successfully.
+
+T – Task
+
+🔹 My goal was to:
+
+Successfully provision worker nodes
+
+Enable secure access to the cluster using kubectl
+
+Ensure end-to-end connectivity from EC2 to EKS
+
+A – Action
+
+🔹 Performed systematic troubleshooting:
+
+🔹 Identified network issue → fixed Security Group to allow port 443 to EKS API
+🔹 Diagnosed authentication failure → verified IAM identity using aws sts get-caller-identity
+🔹 Discovered missing EKS access entry (RBAC mapping)
+🔹 Resolved permission issue by using admin user via CloudShell to create access entry
+🔹 Fixed node group failure by changing instance type from t2.medium to t2.micro
+🔹 Reconfigured kubeconfig and validated cluster access
+
+R – Result
+
+🔹 Successfully connected to cluster → kubectl get nodes working ✅
+🔹 Worker nodes joined cluster and reached Ready state
+🔹 Established a repeatable EKS setup + debugging approach
+🔹 Improved troubleshooting across networking, IAM, and Kubernetes layers
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
 https://chatgpt.com/s/t_69bc1cf52be4819187e1e6e23b44c316
 
 
