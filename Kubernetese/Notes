@@ -795,6 +795,38 @@ R – Result
 🔹 Improved troubleshooting across networking, IAM, and Kubernetes layers
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
+🔴 RCA – EKS Nodes NotReady (Add-on Issue)
+1️⃣ Issue
+
+🔹 Worker nodes in EKS cluster remained in NotReady state and pods were stuck in ContainerCreating
+
+2️⃣ Symptoms
+
+🔹 kubectl get nodes → NotReady
+🔹 kubectl get pods -n kube-system → only ebs-csi-node present
+🔹 Core pods (aws-node, kube-proxy, coredns) missing
+🔹 ebs-csi-node stuck in ContainerCreating
+
+3️⃣ Root Cause
+
+🔹 Mandatory EKS add-ons (VPC CNI, kube-proxy, CoreDNS) were not installed in the cluster
+🔹 Due to this, pod networking was not initialized, preventing nodes from becoming Ready
+
+4️⃣ Troubleshooting Steps
+
+🔹 Checked node status using kubectl get nodes
+🔹 Inspected system pods in kube-system namespace
+🔹 Verified DaemonSets → identified missing aws-node (CNI)
+🔹 Ruled out IAM and networking issues
+🔹 Attempted add-on installation → identified IAM permission limitation
+
+5️⃣ Resolution
+
+🔹 Installed required add-ons (VPC CNI, kube-proxy, CoreDNS) using admin access (CloudShell)
+🔹 Verified all system pods reached Running state
+🔹 Nodes transitioned to Ready successfully
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
 https://chatgpt.com/s/t_69bc1cf52be4819187e1e6e23b44c316
 
 
