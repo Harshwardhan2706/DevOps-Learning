@@ -112,3 +112,50 @@
   - Debug: check firewall if site not reachable
   - SLI: uptime
   - SLO: 99.9%
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🧱 Instance Template ---------------------
+  👉 A blueprint (configuration) used to create VM instances
+
+  ⚙️ What it contains
+    Machine type (e.g., e2-micro)
+    OS image (Ubuntu, etc.)
+    Disk configuration
+    Network (VPC, subnet)
+    Metadata / startup script
+    Tags & service account
+
+  🔥 Key Characteristics
+    Immutable → cannot edit after creation ❌
+    To change → create a new template ✅
+    Used for consistent VM creation
+
+🚀 Where it is used (Very Important)
+  1. Managed Instance Groups (MIG)
+    👉 Main use case
+    Automatically create & manage VMs
+    Auto-scaling
+    Auto-healing
+  2. Bulk VM creation
+    Create multiple identical VMs easily
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🚀 Managed Instance Group ---------------
+  👉 A service that manages a group of identical VMs automatically using an Instance Template
+
+  ⚙️ Key Features
+    🔄 Auto-Healing
+    📈 Auto-Scaling
+    🌍 Load Balancing Integration
+    🔁 Rolling Updates
+    📦 Auto-Creation
+
+  🔄 Lifecycle Flow
+    Create Instance Template
+    Create MIG
+    MIG launches VMs
+    Attach Load Balancer
+    Enable:
+    Auto-scaling
+    Health checks
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
