@@ -100,3 +100,15 @@
                                         Routes:
                                           - Default route → Internet Gateway  ------------------
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+📝 STEP 7: Notes (MANDATORY)
+
+  Write this (keep it short):
+  
+  - VM hosts application
+  - External IP used for public access
+  - Firewall allows HTTP traffic
+  - Nginx serves web page
+  - Debug: check firewall if site not reachable
+  - SLI: uptime
+  - SLO: 99.9%
