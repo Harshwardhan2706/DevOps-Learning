@@ -1,1 +1,102 @@
 🚀 COMPLETE 4-WEEK GCP SRE/DevOps PLAN - https://chatgpt.com/s/t_69c0e7f87c1c8191876fce96e5ed230d
+
+☁️ Virtual Machine --------------------------
+  In Google Cloud Platform, a VM is a compute instance provided by Compute Engine.
+
+👉 Think of it as:
+  A virtual server running in Google’s data centers
+  You can install OS (Linux/Windows), apps, run workloads
+  
+  Key points:
+    Runs on Compute Engine
+    Fully customizable (CPU, RAM, disk)
+    Pay-as-you-go
+
+👉 Example:
+  You launch a VM to run:
+  Backend service
+  Kubernetes node
+  Jenkins server
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+⚙️ Machine Types (e2-micro) ---------------------
+  define CPU + RAM combination for a VM.
+
+ Other families:
+  E2 → cheap, general use
+  N2/N2D → better performance
+  C2 → compute-heavy
+  M1/M2 → memory-heavy
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🌍 Region vs Zone -------------------------
+
+  🌍 Region
+    A geographical location
+    Example:
+    asia-south1 (Mumbai)
+    us-central1
+  
+    👉 Used for:
+      Data locality
+      Compliance
+      Latency
+  
+  📍 Zone
+    A subset inside a region
+    Example:
+    asia-south1-a
+    asia-south1-b
+
+    👉 Each zone = separate data center
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🌐 External vs Internal IP
+  Every VM gets IPs for communication.
+
+  🌍 External IP (Public IP)
+    Accessible from internet
+    Used for:
+    Web servers
+    APIs
+    👉 Example:
+    User → Internet → External IP → VM
+  
+  🏠 Internal IP (Private IP)
+    Used inside VPC network
+    Not accessible from internet
+    👉 Example:
+    App Server → DB Server (internal IP)
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🌐 VPC ----------------------------
+  📍 VPC (Virtual Private Cloud) → A global private network in Google Cloud Platform where all your resources communicate securely.
+  📍Subnet → A regional IP range inside a VPC used to group resources (e.g., 10.0.1.0/24 in asia-south1).
+  📍Internal IP → Private IP used for communication between resources within the VPC (e.g., web → DB).
+  📍External IP → Public IP used to access resources from the internet (e.g., users hitting a web server).
+  📍Firewall Rules → Allow/deny traffic based on IP, port, and protocol (e.g., allow port 80 from internet).
+  📍Routes → Define where network traffic should go (e.g., default route sends traffic to internet).
+  📍Internet Gateway (implicit) → Enables outbound/inbound internet access without manual setup.
+  📍VPC Peering → Private connection between two VPCs (e.g., dev VPC ↔ prod VPC).
+  📍Shared VPC → Central VPC shared across multiple projects for better control.
+  📍Private Google Access → Lets VMs access GCP services without needing external IPs.
+
+                         ---------------- VPC: prod-vpc (global)
+                                        
+                                          Subnet-1 (asia-south1)
+                                            - Web VM
+                                              Internal IP: 10.0.1.2
+                                              External IP: 34.x.x.x
+                                        
+                                          Subnet-2 (asia-south1)
+                                            - DB VM
+                                              Internal IP: 10.0.2.2
+                                              No External IP
+                                        
+                                        Firewall Rules:
+                                          - Allow Internet → Web (80, 443)
+                                          - Allow Web → DB (3306)
+                                          - Deny Internet → DB
+                                        
+                                        Routes:
+                                          - Default route → Internet Gateway  ------------------
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
