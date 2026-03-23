@@ -101,7 +101,7 @@
                                           - Default route → Internet Gateway  ------------------
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
-📝 STEP 7: Notes (MANDATORY)
+📝 Day 1: Notes (MANDATORY)
 
   Write this (keep it short):
   
@@ -160,11 +160,21 @@
     Health checks
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
-📝 STEP 8: Notes (Write This)
+📝 Day 2: Notes (Write This)
   - Instance Template = reusable VM config
   - Startup script automates setup
   - Ensures consistency across VMs
   - Helps in scaling infra
   - Without MIG → no auto-healing
   - SLI: number of healthy instances
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+📝 Day 3: Notes (Write This)
+  - MIG manages group of VMs
+  - Uses instance template
+  - Provides auto-healing
+  - Maintains desired state (e.g., 2 instances)
+  - Deletes/recreates failed VMs
+  - VM health != Application health
+  - SLI: healthy instances
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
