@@ -178,3 +178,45 @@
   - VM health != Application health
   - SLI: healthy instances
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🌐 Load Balancer ------------------
+  👉 A service that distributes incoming traffic across multiple VMs to ensure:
+    High availability
+    Scalability
+    Reliability
+
+  🏗️ Basic Flow
+    User → Load Balancer → Multiple VMs (MIG)
+
+  🔍 How it works (Important)
+    User hits single IP (Load Balancer IP)
+    Load balancer checks:
+    Which VMs are healthy
+    Sends request to one of them
+    Response returned to user
+
+  🔥 Types of Load Balancer in GCP
+    🌍 Global HTTP(S) Load Balancer (Most used)
+      Works across regions
+      Layer 7 (application level)
+      Smart routing
+      🧠 How it works
+      “Smart routing based on request content”
+
+      👉 Best for:
+        Websites / APIs
+  
+    🌐 TCP/UDP Load Balancer
+      Layer 4
+      For non-HTTP traffic
+      🧠 How it works
+        “Just forward traffic — no understanding of content”
+
+      👉 Good for:
+        TCP apps
+        Databases
+
+    📍 Internal Load Balancer
+      Private traffic inside VPC
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
