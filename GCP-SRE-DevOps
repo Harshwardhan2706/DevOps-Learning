@@ -228,3 +228,84 @@
 - If health check fails → instance removed
 - SLI: request success rate
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🚀 Day 5: Autoscaling (Scale Up → Scale Down)
+
+  🔹 1. Enabled Autoscaling on MIG
+      Went to: Google Cloud Console → Instance Group
+      Configured:
+      Min instances = 2
+      Max instances = 4
+      Target CPU = 60%
+  
+      👉 Purpose:
+      Automatically adjust instances based on load
+  
+  🔹 2. Initial State (Before Load)
+      Running instances = 2 (min size)
+      CPU utilization = Low
+      
+      👉 System is stable but not under stress
+  
+  🔹 3. Generated Load (Traffic Simulation)
+      Used Apache Benchmark:
+      ab -n 10000 -c 150 http://<LB-IP>/
+      
+      👉 Simulates:
+      10,000 total requests
+      150 concurrent users
+  
+  🔹 4. Observed No Scaling (Important Learning)
+      CPU remained < 60%
+      Instances stayed at 2
+      
+      👉 Reason:
+      Nginx is lightweight → CPU not stressed
+  
+  🔹 5. Forced CPU Load (Real Testing)
+      Executed on VMs:
+      yes > /dev/null &
+      
+      👉 Result:
+      CPU usage ↑ (~100%)
+      Sustained load created
+  
+  🔹 6. Scale-Up Triggered
+      CPU crossed 60%
+      MIG added instances
+      
+      👉 Instances:
+      2 → 3 → 4
+      
+      👉 This proves:
+      Autoscaling (scale-up) works
+  
+  🔹 7. Observed System Behavior
+      New instances created automatically
+      Load distributed via Load Balancer
+      System handled increased demand
+      🔹 8. Stopped Load (Cleanup)
+      
+      Executed:
+      pkill yes
+      
+      👉 Result:
+      CPU utilization ↓
+  
+  🔹 9. Scale-Down Triggered
+      CPU dropped below threshold
+      MIG reduced instances
+      
+      👉 Instances:
+      4 → 2 (min size)
+      
+      👉 This proves:
+      Autoscaling (scale-down) works
+  
+  🧠 Key Learnings
+      Autoscaling is metric-driven (CPU-based)
+      Traffic ≠ scaling trigger
+      Sustained load is required  
+      Nginx may not generate enough CPU load
+      Scale-up and scale-down both are critical
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
