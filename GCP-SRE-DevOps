@@ -309,3 +309,13 @@
       Nginx may not generate enough CPU load
       Scale-up and scale-down both are critical
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+📝 STEP 8: Notes (Write This)
+  - VPC = network boundary
+  - Subnet = IP range inside VPC
+  - Firewall controls traffic (ports + access)
+  - Internal IP = private communication
+  - External IP = public access
+  - Firewall misconfig can break system
+  - SLI: network success rate
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
