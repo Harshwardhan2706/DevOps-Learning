@@ -436,4 +436,40 @@ https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
     Pod fails due to wrong config
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
+🚀 Day 10: Kubernetes Services (Expose Application)
+  🛠️ Step-by-Step Actions
+    🔹 1. Exposed Deployment via Service
+      kubectl expose deployment nginx-deploy --type=LoadBalancer --port=80 --target-port=80
+      👉 Created:
+      Kubernetes Service
+      Cloud Load Balancer (in background)
+    🔹 2. Verified Service
+      kubectl get services
+      👉 Observed:
+      TYPE = LoadBalancer
+    EXTERNAL-IP assigned (after few mins)
+    🔹 3. Accessed Application
+      Opened in browser:
+      http://<EXTERNAL-IP>
+      👉 Expected:
+      Nginx page
+  
+  🔥 BREAK & DEBUG
+    🚫 Scenario 1: Delete Pod
+      kubectl delete pod <pod-name>
+      👉 Result:
+      Pod recreated (Deployment)
+      Service still works ✅
+    🚫 Scenario 2: Delete Service
+      kubectl delete service nginx-deploy
+      👉 Result:
+      App not accessible ❌
+      👉 Fix:
+      Recreate service
+    🚫 Scenario 3: Wrong Port
+      If service port mismatch:
+      App won’t work
+      👉 Debug:
+      kubectl describe service nginx-deploy
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
