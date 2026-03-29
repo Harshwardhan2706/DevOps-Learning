@@ -322,4 +322,58 @@
 
 📝 Day 7: Week 1 Learning 
 https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸Week-1-End🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸Week-2-Start🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+📝 Day 8:
+  ☁️ Core Understanding:
+    🔗 Correlation (Most Important)
+      Cluster → contains → Nodes → run → Pods → contain → Containers
+    
+    Simple Real-Life Analogy:
+      Cluster = Office building 🏢
+      Node = Individual floors 🧱
+      Pod = Rooms on each floor 🚪
+      Container = People working inside rooms 👨‍💻
+  
+    🧠 How They Work Together (Flow)
+      You deploy an app → Kubernetes creates Pods
+      Scheduler decides → which Node should run the Pod
+      Node runs the Pod using containers
+      All of this happens inside the Cluster
+  
+  ☸️ GKE Setup:
+    🛠️ What We Did (Actions)
+      Created GKE cluster using Google Cloud Console (Autopilot mode)
+      Connected to cluster using:
+        gcloud container clusters get-credentials <cluster-name> --region <region>
+      
+      Verified cluster using:
+        kubectl get nodes
+      
+      Deployed first pod:
+        kubectl run nginx-pod --image=nginx
+      
+      Checked pod status:
+        kubectl get pods
+      Observed node auto-creation after pod deployment
+  
+  ⚠️ Challenges Faced + Fixes
+    🔹 Issue 1: kubectl not connecting
+      ❌ Error:
+      connection to localhost:8080 refused
+      🧠 Reason:
+      kubectl not configured
+      No cluster context set
+      ✅ Fix:
+      gcloud container clusters get-credentials <cluster-name> --region <region>
+  
+    🔹 Issue 2: No nodes found
+      ❌ Output:
+      No resources found
+      🧠 Reason:
+      Using Autopilot mode
+      Nodes created only when workload exists
+      ✅ Fix:
+      Deploy a pod → node created automatically
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
