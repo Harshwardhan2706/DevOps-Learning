@@ -377,3 +377,63 @@ https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
       ✅ Fix:
       Deploy a pod → node created automatically
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🚀 Day 9: Kubernetes Deployments (Auto-Healing + Scaling)
+🛠️ Step-by-Step Actions
+  🔹 1. Created Deployment
+    kubectl create deployment nginx-deploy --image=nginx
+  👉 Created:
+    Deployment object
+    Managed pod automatically
+
+  🔹 2. Verified Deployment & Pods
+    kubectl get deployments
+    kubectl get pods
+  👉 Observed:
+    Deployment = Running
+    Pod = Running
+
+  🔹 3. Understood Deployment Role
+    Manages pods
+    Maintains desired state
+    Ensures availability
+
+  🔥 4. Tested Auto-Healing
+    Deleted a pod:
+    kubectl delete pod <pod-name>
+    Verified:
+    kubectl get pods
+    👉 Observed:
+    Pod recreated automatically ✅
+    👉 Learning:
+    Deployment ensures self-healing
+
+  🔹 5. Scaled Deployment (Scale-Up)
+    kubectl scale deployment nginx-deploy --replicas=3
+    Verified:
+    kubectl get pods
+    👉 Observed:
+    3 pods running
+    👉 Learning:
+    More replicas = more capacity
+  
+  🔹 6. Scaled Down
+    kubectl scale deployment nginx-deploy --replicas=1
+    👉 Observed:
+    Extra pods terminated
+    👉 Learning:
+    Deployment maintains exact replica count
+
+  🔥 7. Break & Debug (Wrong Image)
+    kubectl create deployment bad-deploy --image=nginx:wrong
+    Checked:
+    kubectl get pods
+    kubectl describe pod <pod-name>
+    👉 Observed:
+    Image pull error ❌
+    👉 Learning:
+    Deployment exists
+    Pod fails due to wrong config
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+
