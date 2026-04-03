@@ -473,3 +473,94 @@ https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
       kubectl describe service nginx-deploy
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
 
+🚀 Day 11: FINAL NOTES (Ingress)
+  🛠️ Step-by-Step What You Did
+    🔹 1. Created Multiple Apps
+      kubectl create deployment app1 --image=nginx
+      kubectl create deployment app2 --image=nginx
+
+    🔹 2. Exposed as ClusterIP Services
+      kubectl expose deployment app1 --port=80 --target-port=80
+      kubectl expose deployment app2 --port=80 --target-port=80
+      👉 Internal services only (no external IP)
+  
+    🔹 3. Created Ingress
+      Defined routing rules
+      Tried path-based routing (/app1, /app2)
+
+    🔹 4. Tested Ingress
+      kubectl get ingress
+      👉 Got external IP
+  
+    🔹 5. Accessed via Browser
+      /app1 → ❌ 404
+      /app2 → ❌ 404
+      / → ❌ 404
+
+  🔥 Debugging Scenarios (VERY IMPORTANT)
+    🚫 Scenario 1: 404 (backend NotFound)
+      ❌ Symptom:
+      response 404 backend NotFound
+      🧠 Reason:
+      Path not defined in Ingress
+      ✅ Fix:
+      Use correct path OR add rule
+
+    🚫 Scenario 2: nginx 404
+      ❌ Symptom:
+      404 Not Found nginx
+      🧠 Reason:
+      App doesn’t support /app1 path
+      ✅ Fix:
+      Use / OR implement rewrite
+
+    🚫 Scenario 3: Rewrite Not Working
+      ❌ Symptom:
+      Annotation added but no effect
+      🧠 Reason:
+      GKE uses GCE Ingress (not nginx controller)
+      ✅ Fix:
+      Don’t rely on nginx annotations
+
+    🚫 Scenario 4: No External IP
+      ❌ Symptom:
+      kubectl get ingress
+      ADDRESS = <pending>
+      🧠 Reason:
+      LB provisioning
+      ✅ Fix:
+      Wait 5–10 mins
+
+    🚫 Scenario 5: Service Not Working
+      ❌ Symptom:
+      Ingress created but no response
+      🧠 Reason:
+      Service/pod issue
+      ✅ Fix:
+      kubectl get pods
+      kubectl get services
+      🧠 Final Working Setup
+      👉 Used default backend
+      defaultBackend → app1
+      👉 Access:
+      http://<INGRESS-IP>
+      ✅ Works perfectly
+
+🧠 Final Working Setup
+  ✅ Working Ingress YAML
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: my-ingress
+    spec:
+      defaultBackend:
+        service:
+          name: app1
+          port:
+            number: 80
+  👉 Used default backend
+  defaultBackend → app1
+  👉 Access:
+  http://<INGRESS-IP>
+  ✅ Works perfectly
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
