@@ -705,3 +705,31 @@ https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
           ✅ Fix:
           Use PVC only
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🚀 Day 14: StatefulSets — Quick Notes
+  🛠️ What I Did
+    Created Headless Service (clusterIP: None)
+    Deployed StatefulSet (2 replicas)
+    Verified pods:
+    nginx-stateful-0
+    nginx-stateful-1
+    Checked PVCs:
+    Each pod got its own storage
+    Tested:
+    Stored different data in each pod ✅
+    Deleted pod:
+    Recreated in order ✅
+
+  🧠 Key Concepts
+    StatefulSet = stateful apps (DB, Kafka)
+    Pods have fixed identity (pod-0, pod-1)
+    Each pod gets separate PVC
+    Uses headless service
+    Maintains ordered deployment & scaling
+
+  🔥 Debug Scenarios
+    ❌ No headless service → won’t work
+    ❌ PVC Pending → storage issue
+    ❌ Pod not starting → check describe pod
+    ❌ Same data in pods → wrong volume config
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
