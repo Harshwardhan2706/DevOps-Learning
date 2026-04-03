@@ -564,3 +564,65 @@ https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
   http://<INGRESS-IP>
   ✅ Works perfectly
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🚀 Day 12: ConfigMaps & Secrets
+  🛠️ Step-by-Step Actions
+    🔹 1. Created ConfigMap
+      kubectl create configmap app-config --from-literal=APP_COLOR=blue
+      👉 Stores non-sensitive configuration
+    
+    🔹 2. Verified ConfigMap
+      kubectl get configmaps
+      kubectl describe configmap app-config
+    🔹 3. Used ConfigMap in Pod
+      env:
+      - name: APP_COLOR
+        valueFrom:
+          configMapKeyRef:
+            name: app-config
+            key: APP_COLOR
+    🔹 4. Verified Inside Pod
+      kubectl exec -it config-pod -- printenv | grep APP_COLOR
+      👉 Output:
+      APP_COLOR=blue
+
+    🔹 5. Created Secret
+      kubectl create secret generic app-secret --from-literal=DB_PASSWORD=12345
+      👉 Stores sensitive data
+    
+    🔹 6. Verified Secret
+      kubectl get secrets
+      kubectl describe secret app-secret
+    🔹 7. Used Secret in Pod
+      env:
+      - name: DB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: app-secret
+            key: DB_PASSWORD
+    🔹 8. Verified Inside Pod
+      kubectl exec -it secret-pod -- printenv | grep DB_PASSWORD
+      👉 Output:
+      DB_PASSWORD=12345
+
+  🔥 Debugging Scenarios
+    🚫 Scenario 1: Wrong ConfigMap Name
+      Pod doesn’t get env
+      👉 Fix:
+      Correct name
+
+    🚫 Scenario 2: Wrong Key
+      Variable missing
+      👉 Fix:
+      Match key correctly
+
+    🚫 Scenario 3: Secret Not Found
+      Pod fails to start
+      👉 Debug:
+      kubectl describe pod secret-pod
+
+    🚫 Scenario 4: Security Risk
+      Secrets visible in env
+      👉 Learning:
+      Use volumes (better approach in real systems)
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
