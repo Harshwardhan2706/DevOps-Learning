@@ -626,3 +626,82 @@ https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
       👉 Learning:
       Use volumes (better approach in real systems)
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🚀 Day 13: Volumes (Persistent Storage in Kubernetes)
+  🛠️ Step-by-Step Actions
+    🔹 1. Tested emptyDir (Temporary Storage)
+          volumes:
+          - name: my-volume
+            emptyDir: {}
+      👉 Mounted inside pod at /data
+      🔍 Tested
+        kubectl exec -it volume-pod -- bash
+        echo "hello" > /data/test.txt
+      🔥 Deleted Pod
+        kubectl delete pod volume-pod
+        👉 File lost ❌
+      🧠 Learning
+        emptyDir = temporary storage (lifecycle = pod)
+
+    🔹 2. Tried Creating Persistent Volume (PV)
+          kind: PersistentVolume
+      ❌ Faced Error
+        GKE Warden rejected request (hostPath not allowed)
+      🧠 GKE AUTOPILOT LIMITATION (VERY IMPORTANT)
+        In Google Kubernetes Engine Autopilot:
+          ❌ hostPath is NOT allowed
+          ❌ Manual PV creation is restricted
+          ✅ Only supported storage types allowed
+          ✅ Uses dynamic provisioning
+      🧠 Reason
+        Autopilot manages nodes → no direct node access → hostPath blocked
+
+    🔹 3. Used PVC (Correct Approach)
+          kind: PersistentVolumeClaim
+      🔹 Created PVC
+        kubectl apply -f pvc.yaml
+      🔍 Verified
+        kubectl get pvc
+      👉 Status:
+        Bound
+      👉 Storage auto-created by GCP ✅
+
+    🔹 4. Used PVC in Pod
+          volumes:
+          - name: my-storage
+            persistentVolumeClaim:
+              claimName: my-pvc
+        🔍 Tested Persistence
+          kubectl exec -it pvc-pod -- bash
+          echo "persistent data" > /data/test.txt
+        🔥 Deleted Pod
+          kubectl delete pod pvc-pod
+          kubectl apply -f pvc-pod.yaml
+        🔍 Verified
+          kubectl exec -it pvc-pod -- cat /data/test.txt
+        👉 Output:
+          persistent data
+        🧠 Learning
+          Data persists across pod restart ✅
+
+      🔥 Debugging Scenarios
+        🚫 Scenario 1: PVC Pending
+          kubectl get pvc
+          👉 STATUS = Pending
+        🧠 Reason:
+          No storage class / PV
+
+        🚫 Scenario 2: Pod Not Starting
+          kubectl describe pod pvc-pod
+          👉 Volume mount error
+        
+        🚫 Scenario 3: Data Not Persisting
+          🧠 Reason:
+          Using emptyDir instead of PVC
+
+        🚫 Scenario 4: Autopilot Restriction
+          ❌ Error:
+          hostPath PV rejected
+          ✅ Fix:
+          Use PVC only
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
