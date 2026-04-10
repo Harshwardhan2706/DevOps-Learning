@@ -1,12 +1,15 @@
 📘 Day 1 Notes – Python Basics (SRE/DevOps Focus)
+
     🎯 Objective
         Setup Python environment
         Learn core syntax
         Build a basic server status script
+
     ⚙️ Setup Commands
         python3 --version
         python3 -m venv venv
         source venv/bin/activate   # Mac/Linux
+        
     🧠 Core Concepts
         🔹 1. Variables
             Used to store data
