@@ -1,7 +1,8 @@
 Problem
-    Folders Day1 and Day2 were renamed via the OS file explorer to Day1-basic and Day2-ifelse.
 
-    Git did not detect this as a rename — it saw the old folders as deleted and the new ones as untracked. On next push, both old and new folders appeared on the remote, resulting in 4 directories instead of 2.
+Folders Day1 and Day2 were renamed via the OS file explorer to Day1-basic and Day2-ifelse.
+
+Git did not detect this as a rename — it saw the old folders as deleted and the new ones as untracked. On next push, both old and new folders appeared on the remote, resulting in 4 directories instead of 2.
 
 Fix Applied
     Removed old folders from Git tracking using --cached flag (no local files deleted), then pushed the cleanup commit.
