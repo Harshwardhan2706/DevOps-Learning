@@ -10,19 +10,51 @@ On the next `git push`, both old and new folders were pushed to the remote, resu
  
 ---
 
-Fix Applied
-        Removed old folders from Git tracking using --cached flag (no local files deleted), then pushed the cleanup commit.
-        git rm -r --cached Day1
-        git rm -r --cached Day2
-        git commit -m "Remove stale folders"
-        git push origin <branch>
-
-Future Remediation
-    Always rename tracked folders using git mv so Git registers it as a rename event, not a delete + new add.
-    git mv Day1 Day1-basic
-    git mv Day2 Day2-ifelse
-    git commit -m "Rename folders"
-    git push origin <branch>
-
-Root Cause
-    OS-level rename is invisible to Git. Git tracks content by path — a path change without git mv registers as two separate operations: delete + add. This causes duplicate entries on remote when both the old (deleted but not staged) and new (added) folders are pushed.
+## Root Cause
+ 
+OS-level rename is **invisible to Git**. Git tracks content by file path — a path change made outside of Git registers as two separate operations: **delete + add**.
+ 
+Since the old folders were never staged for deletion, Git pushed the new folders as additions while the old ones remained untouched on the remote.
+ 
+---
+ 
+## Fix Applied
+ 
+Remove the old folders from Git tracking using the `--cached` flag.
+> `--cached` removes files from Git index only — **local files are not deleted**.
+ 
+```bash
+git rm -r --cached Day1
+git rm -r --cached Day2
+ 
+git commit -m "Remove stale Day1 and Day2 folders (renamed to Day1-basic and Day2-ifelse)"
+ 
+git push origin <your-branch-name>
+```
+ 
+---
+ 
+## Future Remediation
+ 
+Always rename tracked folders using `git mv` so Git registers it as a **rename event** — not a delete + add.
+ 
+```bash
+git mv Day1 Day1-basic
+git mv Day2 Day2-ifelse
+ 
+git commit -m "Rename Day1 → Day1-basic, Day2 → Day2-ifelse"
+ 
+git push origin <your-branch-name>
+```
+ 
+---
+ 
+## Summary
+ 
+| | OS Rename | `git mv` |
+|---|---|---|
+| Git awareness | None | Full |
+| Remote behaviour | Duplicate folders | Clean rename |
+| Fix needed? | Yes — manual cleanup | No |
+ 
+---
