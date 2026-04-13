@@ -1,5 +1,0 @@
-server = input("Enter server name: ")
-cpu = int(input("Enter CPU usage: "))
-environment = input("Enter Environment prod/dev: ")
-print("Please find your server status below")
-print(f"server {server} in {environment} is using {cpu}% CPU")
