@@ -733,3 +733,74 @@ https://chatgpt.com/s/t_69c8e0409a5081918bb2911822a232fa
     ❌ Pod not starting → check describe pod
     ❌ Same data in pods → wrong volume config
 🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
+
+🚀 Day 15: Helm — Quick Notes
+    🛠️ What I Did
+    Added repo:
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm repo update
+    Installed app:
+    helm install my-nginx bitnami/nginx
+    Exposed via LoadBalancer:
+    helm upgrade my-nginx bitnami/nginx --set service.type=LoadBalancer
+    Verified:
+    helm list
+    kubectl get svc
+    Performed:
+    Upgrade
+    Rollback
+    Uninstall
+
+  🧠 Key Concepts
+    Helm = Kubernetes package manager
+    Chart = app package
+    Release = deployed instance
+    Supports:
+    install
+    upgrade
+    rollback
+    uninstall
+
+  🔄 Rollback Concept
+    Rollback creates new revision
+    Does NOT revert revision number
+    helm history my-nginx
+
+  🔥 Issues Faced + Fixes
+    ❌ Issue 1: Release Name Already Exists
+      cannot re-use a name that is still in use
+      ✅ Fix:
+      helm uninstall my-nginx
+      # OR
+      helm upgrade my-nginx ...
+  
+    ❌ Issue 2: No Service Visible
+      kubectl get svc
+      👉 Only default services
+      🧠 Reason:
+      Helm install failed / partial deployment
+      ✅ Fix:
+      helm list -A
+      helm uninstall my-nginx
+      helm install my-nginx bitnami/nginx --set service.type=LoadBalancer --debug
+  
+    ❌ Issue 3: Deployment Not Found
+      🧠 Reason:
+      Wrong namespace / failed install
+      ✅ Fix:
+      kubectl get all -A
+      helm status my-nginx
+  
+    ❌ Issue 4: Changes Not Applied
+      🧠 Reason:
+      Used install instead of upgrade
+      ✅ Fix:
+      helm upgrade my-nginx ...
+
+  🧠 SRE Debug Flow
+    1. helm list -A
+    2. helm status <release>
+    3. kubectl get all -A
+    4. check namespace
+    5. reinstall with --debug
+🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸🔸
