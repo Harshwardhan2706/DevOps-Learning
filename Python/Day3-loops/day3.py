@@ -39,7 +39,7 @@
 #         print(f"{server} CRITICAL 🚨")
 #         critical_count += 1
 # print(f"Number of critical servers: {critical_count}")
-#################### while ##################
+#################### while + break ##################
 attempt = 1
 while attempt <= 3:
     status = input("Is deployment successful? (Yes/No): ")
