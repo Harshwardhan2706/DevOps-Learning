@@ -1,5 +1,0 @@
-INFO Server Started
-INFO Database Connected
-ERROR Disk Full
-WARNING CPU High
-ERROR Memory Leak

@@ -1,2 +1,0 @@
-ERROR Disk Full
-ERROR Memory Leak
