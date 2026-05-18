@@ -1,0 +1,5 @@
+[
+  {"name": "web-1", "cpu": 85, "memory": 70},
+  {"name": "web-2", "cpu": 60, "memory": 50},
+  {"name": "db-1", "cpu": 95, "memory": 92}
+]
